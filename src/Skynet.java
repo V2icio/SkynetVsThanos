@@ -98,7 +98,16 @@ public class Skynet {
 
         }
         System.out.println("\nCAMINHO RESPOSTA");
-//-----------------------------------------monta o caminho solucao
+
+        montaSolucao();
+
+        printaSolucao();
+
+        return true;
+    }
+
+    public void montaSolucao(){
+
         solucao.add(fim);
         do{
 
@@ -106,9 +115,6 @@ public class Skynet {
             fim = fim.getPai();
         } while (fim.getPai() != null);
 
-        printaSolucao();
-
-        return true;
     }
 
     public void printaSolucao(){
