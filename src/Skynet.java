@@ -78,7 +78,15 @@ public class Skynet {
             problema = filaPrio.poll();
 
             sucessores = problema.gerarSucessores();//popula o array com os sucessores do problema
-            verificaComHash(sucessores);
+
+            if(tipo == 0){
+
+                verifica(sucessores);
+            } else if (tipo == 1){
+
+                System.out.println("TEM Q IMPLEMENTAR");
+            } else
+                verificaComHash(sucessores);
 
         }
         System.out.println("\nCAMINHO RESPOSTA");
