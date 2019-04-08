@@ -107,11 +107,19 @@ public class ThanosNode implements Problema {
 
         todos.add(new Char("HawkEye", 90, 15, habilidades1, 35));
 
-
+        ArrayList<Habilidade> habilidades2 = new ArrayList<>();
         todos.add(new Char("IronMan"));
+
+        ArrayList<Habilidade> habilidades3 = new ArrayList<>();
         todos.add(new Char("CaptainAmerica"));
+
+        ArrayList<Habilidade> habilidades4 = new ArrayList<>();
         todos.add(new Char("Hulk"));
+
+        ArrayList<Habilidade> habilidades5 = new ArrayList<>();
         todos.add(new Char("Thor"));
+
+        ArrayList<Habilidade> habilidades6 = new ArrayList<>();
         todos.add(new Char("BlackWidow"));
         todos.add(new Char("DrStrange"));
         todos.add(new Char("BlackPanther"));
