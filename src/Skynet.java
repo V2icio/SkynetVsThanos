@@ -28,6 +28,7 @@ public class Skynet {
     Queue<Problema> fila = new LinkedList<>();
     ArrayList<Problema> solucao = new ArrayList<>();
     int[] hash;
+    int tipo;
     long hashCode;
     Object[] base;
     public boolean ver;
@@ -42,6 +43,7 @@ public class Skynet {
         hash = new int[problema.totalPossibilidades()];
         base = problema.base();
         estadoFinal = problema.getFinal();
+        tipo = problema.tipo();
 
         for(int x = 0; x < problema.totalPossibilidades(); x++)//inicia a hash
             hash[x] = 0;
@@ -61,7 +63,6 @@ public class Skynet {
         problema.geraInicial();//gera o no inicial aleatorio
 
         problema.printa();
-        //System.out.println(Permutation.getPermutationIndex(problema.alvo(), problema.base()));
 
         filaPrio.add(problema);
         fim = null;
@@ -79,7 +80,6 @@ public class Skynet {
             sucessores = problema.gerarSucessores();//popula o array com os sucessores do problema
             verificaComHash(sucessores);
 
-
         }
         System.out.println("\nCAMINHO RESPOSTA");
 
@@ -88,6 +88,25 @@ public class Skynet {
         printaSolucao();
 
         return true;
+    }
+
+    public void verifica(ArrayList<Problema> sucessores){
+
+        //-----------------------------------------//roda os sucessores
+        for(int x = 0; x < sucessores.size(); x++){
+
+            aux = sucessores.get(x);//um auxiliar recebe um dos sucessores
+            //-----------------------------------------verificacoes
+            if (aux.equals(estadoFinal)) {
+
+                check = false;
+                fim = aux;//para saber a partir de qual no montar o caminho de volta
+                break;
+            }
+            filaPrio.add(aux);//add o sucessor
+
+
+        }
     }
 
     public void verificaComHash(ArrayList<Problema> sucessores){
