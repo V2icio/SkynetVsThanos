@@ -36,6 +36,11 @@ public class JogoDosOitoNode implements Problema {
         fim[2][2] = 0;*/
     }
 
+    public int tipo(){
+
+        return 2;
+    }
+
     public ArrayList<Problema> gerarSucessores() {
 
         ArrayList<Problema> filhos = new ArrayList<>();

@@ -97,7 +97,7 @@ public class Skynet {
             }
 
         }
-        /*System.out.println("\nCAMINHO RESPOSTA");
+        System.out.println("\nCAMINHO RESPOSTA");
 //-----------------------------------------monta o caminho solucao
         solucao.add(fim);
         do{
@@ -107,7 +107,7 @@ public class Skynet {
         } while (fim.getPai() != null);
 //-----------------------------------------printa o caminho solucao
         for(int t = solucao.size()-1; t >= 0; t--)
-            solucao.get(t).printa();*/
+            solucao.get(t).printa();
 
         return true;
     }

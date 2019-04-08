@@ -26,4 +26,6 @@ public interface Problema {
 
     int pesoHeuristica();//DEVE RETORNAR O PESO DO NO NA HEURISTICA
 
+    int tipo();//0 PARA NAO COMPARA ESTADOS, 1 PARA COMPARA SEM HASH, 2 PARA COMPARA COM HASH
+
 }
