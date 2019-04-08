@@ -88,8 +88,20 @@ public class Skynet {
 
             sucessores = problema.gerarSucessores();//popula o array com os sucessores do problema
 
-            verifica(sucessores);
+            //-----------------------------------------//roda os sucessores
+            for(int x = 0; x < sucessores.size(); x++){
 
+                aux = sucessores.get(x);//um auxiliar recebe um dos sucessores
+                //-----------------------------------------verificacoes
+                if (aux.equals(estadoFinal)) {
+
+                    check = false;
+                    fim = aux;//para saber a partir de qual no montar o caminho de volta
+                    break;
+                }
+                filaPrio.add(aux);//add o sucessor
+
+            }
         }
 
         return true;
@@ -123,53 +135,28 @@ public class Skynet {
 
             sucessores = problema.gerarSucessores();//popula o array com os sucessores do problema
 
-            verificaComHash(sucessores);
+            //-----------------------------------------//roda os sucessores
+            for(int x = 0; x < sucessores.size(); x++){
 
+                aux = sucessores.get(x);//um auxiliar recebe um dos sucessores
+                hashCode = Permutation.getPermutationIndex(aux.alvo(), base);//gera o hashCode do estado
+                //-----------------------------------------verificacoes
+                if(hash[(int)hashCode] == 0) {//se nao existir adicionar na lista com todos e verificar se eh o final
+
+                    hash[(int)hashCode] = 1;//muda na hash para dizer que o estado existe
+                    if (aux.equals(estadoFinal)) {
+
+                        check = false;
+                        fim = aux;//para saber a partir de qual no montar o caminho de volta
+                        break;
+                    }
+                    filaPrio.add(aux);//add o sucessor
+
+                }
+            }
         }
 
         return true;
-    }
-
-    public void verifica(ArrayList<Problema> sucessores){
-
-        //-----------------------------------------//roda os sucessores
-        for(int x = 0; x < sucessores.size(); x++){
-
-            aux = sucessores.get(x);//um auxiliar recebe um dos sucessores
-            //-----------------------------------------verificacoes
-            if (aux.equals(estadoFinal)) {
-
-                check = false;
-                fim = aux;//para saber a partir de qual no montar o caminho de volta
-                break;
-            }
-            filaPrio.add(aux);//add o sucessor
-
-
-        }
-    }
-
-    public void verificaComHash(ArrayList<Problema> sucessores){
-
-        //-----------------------------------------//roda os sucessores
-        for(int x = 0; x < sucessores.size(); x++){
-
-            aux = sucessores.get(x);//um auxiliar recebe um dos sucessores
-            hashCode = Permutation.getPermutationIndex(aux.alvo(), base);//gera o hashCode do estado
-            //-----------------------------------------verificacoes
-            if(hash[(int)hashCode] == 0) {//se nao existir adicionar na lista com todos e verificar se eh o final
-
-                hash[(int)hashCode] = 1;//muda na hash para dizer que o estado existe
-                if (aux.equals(estadoFinal)) {
-
-                    check = false;
-                    fim = aux;//para saber a partir de qual no montar o caminho de volta
-                    break;
-                }
-                filaPrio.add(aux);//add o sucessor
-
-            }
-        }
     }
 
     public void montaSolucao(){
