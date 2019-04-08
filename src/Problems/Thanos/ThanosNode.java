@@ -6,37 +6,60 @@ import java.util.ArrayList;
 
 public class ThanosNode implements Problema {
 
+    Char thanos, thanosFinal;
+    ArrayList<Char> chars;
+    int pesoMovimento;
+
+
+    ThanosNode pai;
+
+    public ThanosNode(){
+
+        thanosFinal = new Char("ThanosFinal", 0, 0, null, 0);
+    }
+
     public ArrayList<Problema> gerarSucessores() {
         return null;
     }
 
     @Override
-    public boolean equals(Problema problema) {
+    public boolean equals(Problema problema) {//este equals compara a vida do thanos
+
+        ThanosNode thanosNode = (ThanosNode) problema;
+
+        if(thanosNode.thanos.vida == this.thanos.vida)
+            return true;
+
         return false;
     }
 
     public Problema getFinal() {
-        return null;
+
+        ThanosNode thanosNode = new ThanosNode();
+        thanosNode.thanos = thanosFinal;
+
+        return thanosNode;
     }
 
     public Problema criaFilho() {
         return null;
     }
 
-    public void printa() {
-
-    }
+    public void printa() {}
 
     public Problema getPai() {
-        return null;
+
+        return pai;
     }
 
     public Object[] base() {
-        return new Object[0];
+
+        return null;
     }
 
     public Object[] alvo() {
-        return new Object[0];
+
+        return null;
     }
 
     public int totalPossibilidades() {
@@ -44,115 +67,73 @@ public class ThanosNode implements Problema {
     }
 
     public int pesoHeuristica() {
-        return 0;
+
+        int total = 0;
+
+        total = total + (2 * pesoMovimento);
+
+        for(Char c : chars){
+
+            if(c.vida > 0)
+                total += c.peso;
+        }
+
+        total = total - (thanos.vida / 100);
+
+        return total;
     }
 
     public int tipo() {
+
         return 0;
     }
 
     public void geraInicial() {
 
+        ArrayList<Char> todos = new ArrayList<>();
+
         ArrayList<Habilidade> habilidades0 = new ArrayList<>();
-        Habilidade habilidade00 = new Habilidade("Raio com a Joia do Poder", 200, 12);
-        Habilidade habilidade01 = new Habilidade("Raio com todas as Joias", 500, 50);
-        Habilidade habilidade02 = new Habilidade("Golpe com a Espada do Infinito", 70, 5);
-        habilidades0.add(habilidade00);
-        habilidades0.add(habilidade01);
-        habilidades0.add(habilidade02);
+        habilidades0.add(new Habilidade("Raio com a Joia do Poder", 200, 12));
+        habilidades0.add(new Habilidade("Raio com todas as Joias", 500, 50));
+        habilidades0.add(new Habilidade("Golpe com a Espada do Infinito", 70, 5));
 
         Char char0 = new Char("Thanos", 2000, 30, habilidades0, 100);
+        thanos = char0;
 
 
         ArrayList<Habilidade> habilidades1 = new ArrayList<>();
-        Habilidade habilidade10 = new Habilidade("Flecha explosiva", 50, 8);
-        Habilidade habilidade11 = new Habilidade("Flecha superexplosiva", 80, 20);
-        habilidades1.add(habilidade10);
-        habilidades1.add(habilidade11);
+        habilidades1.add(new Habilidade("Flecha explosiva", 50, 8));
+        habilidades1.add(new Habilidade("Flecha superexplosiva", 80, 20));
 
-        Char char1 = new Char("HawkEye", 90, 15, habilidades1, 4);
+        todos.add(new Char("HawkEye", 90, 15, habilidades1, 35));
 
 
-        Char char2 = new Char("IronMan");
-
-
-        Char char3 = new Char("CaptainAmerica");
-
-
-        Char char4 = new Char("Hulk");
-
-
-        Char char5 = new Char("Thor");
-
-
-        Char char6 = new Char("BlackWidow");
-
-
-        Char char7 = new Char("DrStrange");
-
-
-        Char char8 = new Char("BlackPanther");
-
-
-        Char char9 = new Char("SpiderMan");
-
-
-        Char char10 = new Char("AntMan");
-
-
-        Char char11 = new Char("WarMachine");
-
-
-        Char char12 = new Char("Falcon");
-
-
-        Char char13 = new Char("Vision");
-
-
-        Char char14 = new Char("ScarletWitch");
-
-
-        Char char15 = new Char("WinterSoldier");
-
-
-        Char char16 = new Char("Loki");
-
-
-        Char char17 = new Char("StarLord");
-
-
-        Char char18 = new Char("Gamora");
-
-
-        Char char19 = new Char("Drax");
-
-
-        Char char20 = new Char("RocketRacoon");
-
-
-        Char char21 = new Char("Groot");
-
-
-        Char char22 = new Char("Mantis");
-
-
-        Char char23 = new Char("Nebula");
-
-
-        Char char24 = new Char("Heimdall");
-
-
-        Char char25 = new Char("Shuri");
-
-
-        Char char26 = new Char("Okoye");
-
-
-        Char char27 = new Char("MBaku");
-
-
-        Char char28 = new Char("Wong");
-
+        todos.add(new Char("IronMan"));
+        todos.add(new Char("CaptainAmerica"));
+        todos.add(new Char("Hulk"));
+        todos.add(new Char("Thor"));
+        todos.add(new Char("BlackWidow"));
+        todos.add(new Char("DrStrange"));
+        todos.add(new Char("BlackPanther"));
+        todos.add(new Char("SpiderMan"));
+        todos.add(new Char("AntMan"));
+        todos.add(new Char("WarMachine"));
+        todos.add(new Char("Falcon"));
+        todos.add(new Char("Vision"));
+        todos.add(new Char("ScarletWitch"));
+        todos.add(new Char("WinterSoldier"));
+        todos.add(new Char("Loki"));
+        todos.add(new Char("StarLord"));
+        todos.add(new Char("Gamora"));
+        todos.add(new Char("Drax"));
+        todos.add(new Char("RocketRacoon"));
+        todos.add(new Char("Groot"));
+        todos.add(new Char("Nebula"));
+        todos.add(new Char("Heimdall"));
+        todos.add(new Char("Shuri"));
+        todos.add(new Char("Okoye"));
+        todos.add(new Char("MBaku"));
+        todos.add(new Char("Wong"));
 
     }
 }

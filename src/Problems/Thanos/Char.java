@@ -8,7 +8,7 @@ public class Char {
     int vida;
     int danoBase;
     ArrayList<Habilidade> habilidades;
-    int peso;//numa escala de 1 a 10
+    int peso;//numa escala de 1 a 100
 
     public Char (String nome, int vida, int danoBase, ArrayList<Habilidade> habilidades, int peso){
 
@@ -17,5 +17,11 @@ public class Char {
         this.danoBase = danoBase;
         this.habilidades = habilidades;
         this.peso = peso;
+    }
+
+    @Override
+    public String toString(){
+
+        return "";
     }
 }

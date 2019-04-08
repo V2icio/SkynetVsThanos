@@ -12,4 +12,10 @@ public class Habilidade {
         this.dano = dano;
         this.cooldown = cooldown;
     }
+
+    @Override
+    public String toString(){
+
+        return "";
+    }
 }
