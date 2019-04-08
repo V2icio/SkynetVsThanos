@@ -105,13 +105,17 @@ public class Skynet {
             solucao.add(fim.getPai());
             fim = fim.getPai();
         } while (fim.getPai() != null);
-//-----------------------------------------printa o caminho solucao
-        for(int t = solucao.size()-1; t >= 0; t--)
-            solucao.get(t).printa();
+
+        printaSolucao();
 
         return true;
     }
 
+    public void printaSolucao(){
 
+        for(int t = solucao.size()-1; t >= 0; t--)
+            solucao.get(t).printa();
+
+    }
 
 }
