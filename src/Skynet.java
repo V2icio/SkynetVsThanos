@@ -24,13 +24,14 @@ public class Skynet {
 
     PriorityQueue<Problema> filaPrio = new PriorityQueue<>(c);
 
-    Problema problema, aux, fim;
+    Problema problema, aux, fim, estadoFinal;
     Queue<Problema> fila = new LinkedList<>();
     ArrayList<Problema> solucao = new ArrayList<>();
     int[] hash;
     long hashCode;
     Object[] base;
     public boolean ver;
+    boolean check;
 
     public Skynet(Problema problema){ //passa da main qual eh o problema
 
@@ -40,10 +41,12 @@ public class Skynet {
 
         hash = new int[problema.totalPossibilidades()];
         base = problema.base();
+        estadoFinal = problema.getFinal();
 
         for(int x = 0; x < problema.totalPossibilidades(); x++)//inicia a hash
             hash[x] = 0;
 
+        check = true;
         ver = protocolGenisys();
 
         LocalTime localTime1 = java.time.LocalTime.now();
@@ -63,7 +66,6 @@ public class Skynet {
         filaPrio.add(problema);
         fim = null;
         ArrayList<Problema> sucessores;//array com os sucessores
-        boolean check = true;
 //-----------------------------------------execucao
         while(check){
 
@@ -75,26 +77,8 @@ public class Skynet {
             problema = filaPrio.poll();
 
             sucessores = problema.gerarSucessores();//popula o array com os sucessores do problema
+            verificaComHash(sucessores);
 
-    //-----------------------------------------//roda os sucessores
-            for(int x = 0; x < sucessores.size(); x++){
-
-                aux = sucessores.get(x);//um auxiliar recebe um dos sucessores
-                hashCode = Permutation.getPermutationIndex(aux.alvo(), base);//gera o hashCode do estado
-        //-----------------------------------------verificacoes
-                if(hash[(int)hashCode] == 0) {//se nao existir adicionar na lista com todos e verificar se eh o final
-
-                    hash[(int)hashCode] = 1;//muda na hash para dizer que o estado existe
-                    if (aux.equals(aux.getFinal())) {
-
-                        check = false;
-                        fim = aux;//para saber a partir de qual no montar o caminho de volta
-                        break;
-                    }
-                    filaPrio.add(aux);//add o sucessor
-
-                }
-            }
 
         }
         System.out.println("\nCAMINHO RESPOSTA");
@@ -104,6 +88,29 @@ public class Skynet {
         printaSolucao();
 
         return true;
+    }
+
+    public void verificaComHash(ArrayList<Problema> sucessores){
+
+        //-----------------------------------------//roda os sucessores
+        for(int x = 0; x < sucessores.size(); x++){
+
+            aux = sucessores.get(x);//um auxiliar recebe um dos sucessores
+            hashCode = Permutation.getPermutationIndex(aux.alvo(), base);//gera o hashCode do estado
+            //-----------------------------------------verificacoes
+            if(hash[(int)hashCode] == 0) {//se nao existir adicionar na lista com todos e verificar se eh o final
+
+                hash[(int)hashCode] = 1;//muda na hash para dizer que o estado existe
+                if (aux.equals(estadoFinal)) {
+
+                    check = false;
+                    fim = aux;//para saber a partir de qual no montar o caminho de volta
+                    break;
+                }
+                filaPrio.add(aux);//add o sucessor
+
+            }
+        }
     }
 
     public void montaSolucao(){
