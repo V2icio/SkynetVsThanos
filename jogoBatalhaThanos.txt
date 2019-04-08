@@ -1,0 +1,27 @@
+o dano que o personagem da é com base no peso dele
+a heuristica do estado é baseado na soma dos pontos dos herois + o dano que ele já levou
+
+mostrar todas as possibilidades que a gente analisou
+
+que não vai precisar comparar com né repetido, só fazer uma linked list ordenada
+
+
+ideias:
+- * habiliadade baseada em turnos
+- * peso pode ser diferente do ataque ()
+- * inicial pode ser matar a metade de um conjunto e vai chegando gente de uma fila aleatoria
+- * Thanos sempre contra-ataca, mas tem skills que realmente dão dano, 
+	ataque básico do Thanos da pouco dano, Skills tem cd e prioridade de uso diferentes.
+- Mostrar o caminho mais rápido ou com melhor pontuação,  
+
+
+
+
+
+
+- Thanos ataca em turnos fixos, ele ataca o ultimo que atacou
+- inicias fixos e vai chegando gente de uma fila aleatoria
+
+
+
+
