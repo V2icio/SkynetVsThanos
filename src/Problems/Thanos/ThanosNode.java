@@ -72,5 +72,87 @@ public class ThanosNode implements Problema {
 
         Char char1 = new Char("HawkEye", 90, 15, habilidades1, 4);
 
+
+        Char char2 = new Char("IronMan");
+
+
+        Char char3 = new Char("CaptainAmerica");
+
+
+        Char char4 = new Char("Hulk");
+
+
+        Char char5 = new Char("Thor");
+
+
+        Char char6 = new Char("BlackWidow");
+
+
+        Char char7 = new Char("DrStrange");
+
+
+        Char char8 = new Char("BlackPanther");
+
+
+        Char char9 = new Char("SpiderMan");
+
+
+        Char char10 = new Char("AntMan");
+
+
+        Char char11 = new Char("WarMachine");
+
+
+        Char char12 = new Char("Falcon");
+
+
+        Char char13 = new Char("Vision");
+
+
+        Char char14 = new Char("ScarletWitch");
+
+
+        Char char15 = new Char("WinterSoldier");
+
+
+        Char char16 = new Char("Loki");
+
+
+        Char char17 = new Char("StarLord");
+
+
+        Char char18 = new Char("Gamora");
+
+
+        Char char19 = new Char("Drax");
+
+
+        Char char20 = new Char("RocketRacoon");
+
+
+        Char char21 = new Char("Groot");
+
+
+        Char char22 = new Char("Mantis");
+
+
+        Char char23 = new Char("Nebula");
+
+
+        Char char24 = new Char("Heimdall");
+
+
+        Char char25 = new Char("Shuri");
+
+
+        Char char26 = new Char("Okoye");
+
+
+        Char char27 = new Char("MBaku");
+
+
+        Char char28 = new Char("Wong");
+
+
     }
 }
