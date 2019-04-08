@@ -55,6 +55,13 @@ public class Skynet {
         } else
             ver = protocolGenisys2();
 
+        if(ver){
+
+            System.out.println("\nCAMINHO RESPOSTA");
+            montaSolucao();
+            printaSolucao();
+        }
+
         LocalTime localTime1 = java.time.LocalTime.now();
         long total = Duration.between(localTime, localTime1).toMillis();
         System.out.println("\nTempo de execucao: "+total+" ms");
@@ -84,11 +91,6 @@ public class Skynet {
             verifica(sucessores);
 
         }
-        System.out.println("\nCAMINHO RESPOSTA");
-
-        montaSolucao();
-
-        printaSolucao();
 
         return true;
     }
@@ -124,11 +126,6 @@ public class Skynet {
             verificaComHash(sucessores);
 
         }
-        System.out.println("\nCAMINHO RESPOSTA");
-
-        montaSolucao();
-
-        printaSolucao();
 
         return true;
     }
