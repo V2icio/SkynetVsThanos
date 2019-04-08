@@ -22,11 +22,10 @@ public class Skynet {
         }
     };
 
-    PriorityQueue<Problema> filaPrio = new PriorityQueue<>(c);
-
+    PriorityQueue<Problema> filaPrio;
     Problema problema, aux, fim, estadoFinal;
-    Queue<Problema> fila = new LinkedList<>();
-    ArrayList<Problema> solucao = new ArrayList<>();
+    Queue<Problema> fila;
+    ArrayList<Problema> solucao;
     int[] hash;
     int tipo;
     long hashCode;
@@ -38,27 +37,30 @@ public class Skynet {
 
         LocalTime localTime = java.time.LocalTime.now();
 
-        this.problema = problema;
+        solucao = new ArrayList<>();
 
-        hash = new int[problema.totalPossibilidades()];
+        this.problema = problema;
         base = problema.base();
         estadoFinal = problema.getFinal();
         tipo = problema.tipo();
 
-        for(int x = 0; x < problema.totalPossibilidades(); x++)//inicia a hash
-            hash[x] = 0;
-
         check = true;
-        ver = protocolGenisys();
+
+        if(tipo == 0){
+
+            ver = protocolGenisys0();
+        } else if (tipo == 1){
+
+            System.out.println("TENHO Q IMPLEMENTAR");
+        } else
+            ver = protocolGenisys2();
 
         LocalTime localTime1 = java.time.LocalTime.now();
-
         long total = Duration.between(localTime, localTime1).toMillis();
-
         System.out.println("\nTempo de execucao: "+total+" ms");
     }
 
-    public boolean protocolGenisys(){
+    public boolean protocolGenisys0(){
 //-----------------------------------------cria as variaveis necessarias
         problema.geraInicial();//gera o no inicial aleatorio
 
@@ -79,14 +81,47 @@ public class Skynet {
 
             sucessores = problema.gerarSucessores();//popula o array com os sucessores do problema
 
-            if(tipo == 0){
+            verifica(sucessores);
 
-                verifica(sucessores);
-            } else if (tipo == 1){
+        }
+        System.out.println("\nCAMINHO RESPOSTA");
 
-                System.out.println("TEM Q IMPLEMENTAR");
-            } else
-                verificaComHash(sucessores);
+        montaSolucao();
+
+        printaSolucao();
+
+        return true;
+    }
+
+    public boolean protocolGenisys2(){
+//-----------------------------------------cria as variaveis necessarias
+        hash = new int[problema.totalPossibilidades()];
+
+        for(int x = 0; x < problema.totalPossibilidades(); x++)//inicia a hash
+            hash[x] = 0;
+
+        filaPrio  = new PriorityQueue<>(c);
+
+        problema.geraInicial();//gera o no inicial aleatorio
+
+        problema.printa();
+
+        filaPrio.add(problema);
+        fim = null;
+        ArrayList<Problema> sucessores;//array com os sucessores
+//-----------------------------------------execucao
+        while(check){
+
+            if(filaPrio.isEmpty()){
+
+                System.out.println("\nIMPOSSIVEL DE RESOLVER");
+                return false;
+            }
+            problema = filaPrio.poll();
+
+            sucessores = problema.gerarSucessores();//popula o array com os sucessores do problema
+
+            verificaComHash(sucessores);
 
         }
         System.out.println("\nCAMINHO RESPOSTA");
