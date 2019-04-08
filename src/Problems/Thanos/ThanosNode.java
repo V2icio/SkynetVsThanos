@@ -121,27 +121,72 @@ public class ThanosNode implements Problema {
 
         ArrayList<Habilidade> habilidades6 = new ArrayList<>();
         todos.add(new Char("BlackWidow"));
+
+        ArrayList<Habilidade> habilidades7 = new ArrayList<>();
         todos.add(new Char("DrStrange"));
+
+        ArrayList<Habilidade> habilidades8 = new ArrayList<>();
         todos.add(new Char("BlackPanther"));
+
+        ArrayList<Habilidade> habilidades9 = new ArrayList<>();
         todos.add(new Char("SpiderMan"));
+
+        ArrayList<Habilidade> habilidades10 = new ArrayList<>();
         todos.add(new Char("AntMan"));
+
+        ArrayList<Habilidade> habilidades11 = new ArrayList<>();
         todos.add(new Char("WarMachine"));
+
+        ArrayList<Habilidade> habilidades12 = new ArrayList<>();
         todos.add(new Char("Falcon"));
+
+        ArrayList<Habilidade> habilidades13 = new ArrayList<>();
         todos.add(new Char("Vision"));
+
+        ArrayList<Habilidade> habilidades14 = new ArrayList<>();
         todos.add(new Char("ScarletWitch"));
+
+        ArrayList<Habilidade> habilidades15 = new ArrayList<>();
         todos.add(new Char("WinterSoldier"));
+
+        ArrayList<Habilidade> habilidades16 = new ArrayList<>();
         todos.add(new Char("Loki"));
+
+        ArrayList<Habilidade> habilidades17 = new ArrayList<>();
         todos.add(new Char("StarLord"));
+
+        ArrayList<Habilidade> habilidades18 = new ArrayList<>();
         todos.add(new Char("Gamora"));
+
+        ArrayList<Habilidade> habilidades19 = new ArrayList<>();
         todos.add(new Char("Drax"));
+
+        ArrayList<Habilidade> habilidades20 = new ArrayList<>();
         todos.add(new Char("RocketRacoon"));
+
+        ArrayList<Habilidade> habilidades21 = new ArrayList<>();
         todos.add(new Char("Groot"));
+
+        ArrayList<Habilidade> habilidades22 = new ArrayList<>();
         todos.add(new Char("Nebula"));
+
+        ArrayList<Habilidade> habilidades23 = new ArrayList<>();
         todos.add(new Char("Heimdall"));
+
+        ArrayList<Habilidade> habilidades24 = new ArrayList<>();
         todos.add(new Char("Shuri"));
+
+        ArrayList<Habilidade> habilidades25 = new ArrayList<>();
         todos.add(new Char("Okoye"));
+
+        ArrayList<Habilidade> habilidades26 = new ArrayList<>();
         todos.add(new Char("MBaku"));
+
+        ArrayList<Habilidade> habilidades27 = new ArrayList<>();
         todos.add(new Char("Wong"));
+
+        ArrayList<Habilidade> habilidades28 = new ArrayList<>();
+        todos.add(new Char("Mantis"));
 
     }
 }
