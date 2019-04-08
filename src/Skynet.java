@@ -6,22 +6,6 @@ import java.util.*;
 
 public class Skynet {
 
-    Comparator<Problema> c = new Comparator<Problema>() {
-
-        @Override
-        public int compare(Problema p1, Problema p2) {
-
-            int result = p1.pesoHeuristica() - p2.pesoHeuristica();
-
-            if(result < 0)
-                return -1;
-            if(result == 0)
-                return 0;
-            return 1;
-
-        }
-    };
-
     PriorityQueue<Problema> filaPrio;
     Problema problema, aux, fim, estadoFinal;
     Queue<Problema> fila;
@@ -114,7 +98,17 @@ public class Skynet {
         for(int x = 0; x < problema.totalPossibilidades(); x++)//inicia a hash
             hash[x] = 0;
 
-        filaPrio  = new PriorityQueue<>(c);
+        filaPrio  = new PriorityQueue<>((p1, p2) -> {
+
+            int result = p1.pesoHeuristica() - p2.pesoHeuristica();
+
+            if(result < 0)
+                return -1;
+            if(result == 0)
+                return 0;
+            return 1;
+
+        });
 
         problema.geraInicial();//gera o no inicial aleatorio
 
