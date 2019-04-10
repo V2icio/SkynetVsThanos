@@ -96,6 +96,7 @@ public class ThanosNode implements Problema {
         thanosNode.chars = chars0;
         thanosNode.ultimoAtacante = this.ultimoAtacante;
         thanosNode.rodada += this.rodada;
+        thanosNode.roteiro = this.roteiro;
 
         return thanosNode;
     }
