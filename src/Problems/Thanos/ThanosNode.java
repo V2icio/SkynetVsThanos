@@ -42,7 +42,18 @@ public class ThanosNode implements Problema {
     }
 
     public Problema criaFilho() {
-        return null;
+
+        ArrayList<Char> chars0 = new ArrayList<>();
+        for(Char c : chars)
+            chars0.add(c.copy());
+
+        ThanosNode thanosNode = new ThanosNode();
+        thanosNode.thanos = this.thanos.copy();
+        thanosNode.pai = this;
+        thanosNode.thanosFinal = this.thanosFinal;
+        thanosNode.chars = chars0;
+
+        return thanosNode;
     }
 
     public void printa() {}
@@ -92,101 +103,105 @@ public class ThanosNode implements Problema {
 
         ArrayList<Char> todos = new ArrayList<>();
 
-        ArrayList<Habilidade> habilidades0 = new ArrayList<>();
-        habilidades0.add(new Habilidade("Raio com a Joia do Poder", 200, 12));
-        habilidades0.add(new Habilidade("Raio com todas as Joias", 500, 50));
-        habilidades0.add(new Habilidade("Golpe com a Espada do Infinito", 70, 5));
+        ArrayList<Skill> skills0 = new ArrayList<>();
+        skills0.add(new Skill("Raio com a Joia do Poder", 200, 12));
+        skills0.add(new Skill("Raio com todas as Joias", 500, 50));
+        skills0.add(new Skill("Golpe com a Espada do Infinito", 70, 5));
 
-        Char char0 = new Char("Thanos", 2000, 30, habilidades0, 100);
+        Char char0 = new Char("Thanos", 2000, 30, skills0, 100);
         thanos = char0;
 
+        ArrayList<Skill> skills1 = new ArrayList<>();
+        skills1.add(new Skill("Flecha explosiva", 50, 8));
+        skills1.add(new Skill("Flecha superexplosiva", 80, 20));
+        todos.add(new Char("HawkEye", 90, 15, skills1, 35));
 
-        ArrayList<Habilidade> habilidades1 = new ArrayList<>();
-        habilidades1.add(new Habilidade("Flecha explosiva", 50, 8));
-        habilidades1.add(new Habilidade("Flecha superexplosiva", 80, 20));
+        ArrayList<Skill> skills2 = new ArrayList<>();
+        skills2.add(new Skill("Canhao de fotons", 200, 13));
+        skills2.add(new Skill("Espada de nanorobos", 70, 3));
+        skills2.add(new Skill("Misseis explosivos", 130, 20));
+        todos.add(new Char("IronMan", 700, 22, skills2, 60));
 
-        todos.add(new Char("HawkEye", 90, 15, habilidades1, 35));
+        //ArrayList<Skill> skills3 = new ArrayList<>();
+        //todos.add(new Char("CaptainAmerica"));
 
-        ArrayList<Habilidade> habilidades2 = new ArrayList<>();
-        todos.add(new Char("IronMan"));
+        ArrayList<Skill> skills4 = new ArrayList<>();
+        skills4.add(new Skill("Soco com salto", 110, 10));
+        todos.add(new Char("Hulk", 1300, 70, skills4, 85));
 
-        ArrayList<Habilidade> habilidades3 = new ArrayList<>();
-        todos.add(new Char("CaptainAmerica"));
-
-        ArrayList<Habilidade> habilidades4 = new ArrayList<>();
-        todos.add(new Char("Hulk"));
-
-        ArrayList<Habilidade> habilidades5 = new ArrayList<>();
+        /*ArrayList<Skill> skills5 = new ArrayList<>();
         todos.add(new Char("Thor"));
 
-        ArrayList<Habilidade> habilidades6 = new ArrayList<>();
+        ArrayList<Skill> skills6 = new ArrayList<>();
         todos.add(new Char("BlackWidow"));
 
-        ArrayList<Habilidade> habilidades7 = new ArrayList<>();
+        ArrayList<Skill> skills7 = new ArrayList<>();
         todos.add(new Char("DrStrange"));
 
-        ArrayList<Habilidade> habilidades8 = new ArrayList<>();
+        ArrayList<Skill> skills8 = new ArrayList<>();
         todos.add(new Char("BlackPanther"));
 
-        ArrayList<Habilidade> habilidades9 = new ArrayList<>();
+        ArrayList<Skill> skills9 = new ArrayList<>();
         todos.add(new Char("SpiderMan"));
 
-        ArrayList<Habilidade> habilidades10 = new ArrayList<>();
+        ArrayList<Skill> skills10 = new ArrayList<>();
         todos.add(new Char("AntMan"));
 
-        ArrayList<Habilidade> habilidades11 = new ArrayList<>();
+        ArrayList<Skill> skills11 = new ArrayList<>();
         todos.add(new Char("WarMachine"));
 
-        ArrayList<Habilidade> habilidades12 = new ArrayList<>();
+        ArrayList<Skill> skills12 = new ArrayList<>();
         todos.add(new Char("Falcon"));
 
-        ArrayList<Habilidade> habilidades13 = new ArrayList<>();
+        ArrayList<Skill> skills13 = new ArrayList<>();
         todos.add(new Char("Vision"));
 
-        ArrayList<Habilidade> habilidades14 = new ArrayList<>();
+        ArrayList<Skill> skills14 = new ArrayList<>();
         todos.add(new Char("ScarletWitch"));
 
-        ArrayList<Habilidade> habilidades15 = new ArrayList<>();
+        ArrayList<Skill> skills15 = new ArrayList<>();
         todos.add(new Char("WinterSoldier"));
 
-        ArrayList<Habilidade> habilidades16 = new ArrayList<>();
+        ArrayList<Skill> skills16 = new ArrayList<>();
         todos.add(new Char("Loki"));
 
-        ArrayList<Habilidade> habilidades17 = new ArrayList<>();
+        ArrayList<Skill> skills17 = new ArrayList<>();
         todos.add(new Char("StarLord"));
 
-        ArrayList<Habilidade> habilidades18 = new ArrayList<>();
+        ArrayList<Skill> skills18 = new ArrayList<>();
         todos.add(new Char("Gamora"));
 
-        ArrayList<Habilidade> habilidades19 = new ArrayList<>();
+        ArrayList<Skill> skills19 = new ArrayList<>();
         todos.add(new Char("Drax"));
 
-        ArrayList<Habilidade> habilidades20 = new ArrayList<>();
+        ArrayList<Skill> skills20 = new ArrayList<>();
         todos.add(new Char("RocketRacoon"));
 
-        ArrayList<Habilidade> habilidades21 = new ArrayList<>();
+        ArrayList<Skill> skills21 = new ArrayList<>();
         todos.add(new Char("Groot"));
 
-        ArrayList<Habilidade> habilidades22 = new ArrayList<>();
+        ArrayList<Skill> skills22 = new ArrayList<>();
         todos.add(new Char("Nebula"));
 
-        ArrayList<Habilidade> habilidades23 = new ArrayList<>();
+        ArrayList<Skill> skills23 = new ArrayList<>();
         todos.add(new Char("Heimdall"));
 
-        ArrayList<Habilidade> habilidades24 = new ArrayList<>();
+        ArrayList<Skill> skills24 = new ArrayList<>();
         todos.add(new Char("Shuri"));
 
-        ArrayList<Habilidade> habilidades25 = new ArrayList<>();
+        ArrayList<Skill> skills25 = new ArrayList<>();
         todos.add(new Char("Okoye"));
 
-        ArrayList<Habilidade> habilidades26 = new ArrayList<>();
+        ArrayList<Skill> skills26 = new ArrayList<>();
         todos.add(new Char("MBaku"));
 
-        ArrayList<Habilidade> habilidades27 = new ArrayList<>();
+        ArrayList<Skill> skills27 = new ArrayList<>();
         todos.add(new Char("Wong"));
 
-        ArrayList<Habilidade> habilidades28 = new ArrayList<>();
-        todos.add(new Char("Mantis"));
+        ArrayList<Skill> skills28 = new ArrayList<>();
+        todos.add(new Char("Mantis"));*/
+
+
 
     }
 }

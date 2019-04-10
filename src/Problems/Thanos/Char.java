@@ -7,16 +7,26 @@ public class Char {
     String nome;
     int vida;
     int danoBase;
-    ArrayList<Habilidade> habilidades;
+    ArrayList<Skill> skills;
     int peso;//numa escala de 1 a 100
 
-    public Char (String nome, int vida, int danoBase, ArrayList<Habilidade> habilidades, int peso){
+    public Char (String nome, int vida, int danoBase, ArrayList<Skill> skills, int peso){
 
         this.nome = nome;
         this.vida = vida;
         this.danoBase = danoBase;
-        this.habilidades = habilidades;
+        this.skills = skills;
         this.peso = peso;
+    }
+
+    public Char copy(){
+
+        ArrayList<Skill> arrayList = new ArrayList<>();
+
+        for(Skill h : skills)
+            arrayList.add(h.copy());
+
+        return new Char(nome, vida, danoBase, arrayList, peso);
     }
 
     @Override
