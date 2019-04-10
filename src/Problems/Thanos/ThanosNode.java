@@ -44,8 +44,11 @@ public class ThanosNode implements Problema {
 
                 defensor.vida -= skill.dano;
                 skill.indicaTurno += skill.cooldown;
+                return;
             }
         }
+
+        defensor.vida -= atacante.danoBase;
     }
 
     @Override
