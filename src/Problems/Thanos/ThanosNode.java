@@ -10,28 +10,39 @@ public class ThanosNode implements Problema {
     ArrayList<Char> chars;
     int rodada;
     int ultimoAtacante;
-
+    ArrayList<String> roteiro;
 
     ThanosNode pai;
 
-    public ThanosNode(){
+    public ThanosNode(){//********** NO THANOSNODE INICIAL GERAR UM ULTIMO ATACANTE ALEATORIO ************
 
         thanosFinal = new Char("ThanosFinal", 0, 0, null, 0);
+        roteiro = new ArrayList<>();
     }
 
     public ArrayList<Problema> gerarSucessores() {
 
-        ArrayList<ThanosNode> filhos = new ArrayList<>();
+        ArrayList<Problema> filhos = new ArrayList<>();
         ThanosNode aux;
 
+        ataque(thanos, chars.get(ultimoAtacante));
+        if(chars.get(ultimoAtacante).vida < 1)
+            chars.remove(ultimoAtacante);
 
+        for(int x = 0; x < chars.size(); x++){
 
-        for(Char c : chars){
+            aux = (ThanosNode)this.criaFilho();
 
+            ataque(aux.chars.get(x), aux.thanos);
+            if(aux.thanos.vida < 0)
+                aux.thanos.vida = 0;
 
+            aux.ultimoAtacante = x;
+
+            filhos.add(aux);
         }
 
-        return null;
+        return filhos;
     }
 
     public void ataque(Char atacante, Char defensor){
@@ -44,11 +55,13 @@ public class ThanosNode implements Problema {
 
                 defensor.vida -= skill.dano;
                 skill.indicaTurno += skill.cooldown;
+                roteiro.add(atacante.nome + " atacou " + defensor.nome + " utilizando " + skill.nome + ".");
                 return;
             }
         }
 
         defensor.vida -= atacante.danoBase;
+        roteiro.add(atacante.nome + " atacou " + defensor.nome + " utilizando seu golpe padrao.");
     }
 
     @Override
@@ -82,6 +95,7 @@ public class ThanosNode implements Problema {
         thanosNode.thanosFinal = this.thanosFinal;
         thanosNode.chars = chars0;
         thanosNode.ultimoAtacante = this.ultimoAtacante;
+        thanosNode.rodada += this.rodada;
 
         return thanosNode;
     }
@@ -109,17 +123,21 @@ public class ThanosNode implements Problema {
 
     public int pesoHeuristica() {
 
+        if(chars.isEmpty())
+            return Integer.MAX_VALUE;
+
+
         int total = 0;
 
-        total = total + (2 * rodada);
+        total = total + rodada;//somo a rodada
 
         for(Char c : chars){
 
             if(c.vida > 0)
-                total += c.peso;
+                total -= c.peso;//diminuo o peso dos personagens vivos
         }
 
-        total = total - (thanos.vida / 100);
+        total = total + (thanos.vida / 100);//somo a vida do thanos / 100
 
         return total;
     }
@@ -231,7 +249,7 @@ public class ThanosNode implements Problema {
         ArrayList<Skill> skills28 = new ArrayList<>();
         todos.add(new Char("Mantis"));*/
 
-
+        chars.addAll(todos);//mudar isso para pegar aleatorios
 
     }
 }

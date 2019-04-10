@@ -5,16 +5,9 @@ public class Testes {
 
     public static void main(String[] args) {
 
-        Stack<Integer> a = new Stack<>();
+        int a = Integer.MAX_VALUE;
 
-        a.add(1);
-        a.add(2);
-        a.add(3);
-
-        for (Integer i : a)
-            i = i + 3;
-
-        System.out.println(a.get(0));
+        System.out.println(a);
 
     }
 }
