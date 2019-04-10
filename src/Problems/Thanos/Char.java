@@ -23,8 +23,8 @@ public class Char {
 
         ArrayList<Skill> arrayList = new ArrayList<>();
 
-        for(Skill h : skills)
-            arrayList.add(h.copy());
+        for(Skill s : skills)
+            arrayList.add(s.copy());
 
         return new Char(nome, vida, danoBase, arrayList, peso);
     }

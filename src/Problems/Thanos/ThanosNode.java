@@ -95,13 +95,16 @@ public class ThanosNode implements Problema {
         thanosNode.thanosFinal = this.thanosFinal;
         thanosNode.chars = chars0;
         thanosNode.ultimoAtacante = this.ultimoAtacante;
-        thanosNode.rodada += this.rodada;
+        thanosNode.rodada = this.rodada++;
         thanosNode.roteiro = this.roteiro;
 
         return thanosNode;
     }
 
-    public void printa() {}
+    public void printa() {
+
+        //************* VER COMO VOU FAZER PRA PRINTAR ********************** (se pa vou ter q mudar como funfa o roteiro)
+    }
 
     public Problema getPai() {
 
@@ -134,11 +137,10 @@ public class ThanosNode implements Problema {
 
         for(Char c : chars){
 
-            if(c.vida > 0)
-                total -= c.peso;//diminuo o peso dos personagens vivos
+            total -= c.peso;//diminuo o peso dos personagens vivos
         }
 
-        total = total + (thanos.vida / 100);//somo a vida do thanos / 100
+        total = total + (thanos.vida / 10);//somo a vida do thanos / 100
 
         return total;
     }
@@ -157,7 +159,7 @@ public class ThanosNode implements Problema {
         skills0.add(new Skill("Raio com todas as Joias", 500, 50, 50));
         skills0.add(new Skill("Golpe com a Espada do Infinito", 70, 5, 5));
 
-        Char char0 = new Char("Thanos", 2000, 30, skills0, 100);
+        Char char0 = new Char("Thanos", 4000, 30, skills0, 100);
         thanos = char0;
 
         ArrayList<Skill> skills1 = new ArrayList<>();
