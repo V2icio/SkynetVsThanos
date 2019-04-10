@@ -8,7 +8,8 @@ public class ThanosNode implements Problema {
 
     Char thanos, thanosFinal;
     ArrayList<Char> chars;
-    int pesoMovimento;
+    int rodada;
+    int ultimoAtacante;
 
 
     ThanosNode pai;
@@ -19,7 +20,32 @@ public class ThanosNode implements Problema {
     }
 
     public ArrayList<Problema> gerarSucessores() {
+
+        ArrayList<ThanosNode> filhos = new ArrayList<>();
+        ThanosNode aux;
+
+
+
+        for(Char c : chars){
+
+
+        }
+
         return null;
+    }
+
+    public void ataque(Char atacante, Char defensor){
+
+        Skill skill;
+        for(int x = 0; x < atacante.skills.size(); x++){
+
+            skill = atacante.skills.get(x);
+            if(skill.indicaTurno < rodada){
+
+                defensor.vida -= skill.dano;
+                skill.indicaTurno += skill.cooldown;
+            }
+        }
     }
 
     @Override
@@ -52,6 +78,7 @@ public class ThanosNode implements Problema {
         thanosNode.pai = this;
         thanosNode.thanosFinal = this.thanosFinal;
         thanosNode.chars = chars0;
+        thanosNode.ultimoAtacante = this.ultimoAtacante;
 
         return thanosNode;
     }
@@ -81,7 +108,7 @@ public class ThanosNode implements Problema {
 
         int total = 0;
 
-        total = total + (2 * pesoMovimento);
+        total = total + (2 * rodada);
 
         for(Char c : chars){
 
@@ -104,29 +131,29 @@ public class ThanosNode implements Problema {
         ArrayList<Char> todos = new ArrayList<>();
 
         ArrayList<Skill> skills0 = new ArrayList<>();
-        skills0.add(new Skill("Raio com a Joia do Poder", 200, 12));
-        skills0.add(new Skill("Raio com todas as Joias", 500, 50));
-        skills0.add(new Skill("Golpe com a Espada do Infinito", 70, 5));
+        skills0.add(new Skill("Raio com a Joia do Poder", 200, 12, 12));
+        skills0.add(new Skill("Raio com todas as Joias", 500, 50, 50));
+        skills0.add(new Skill("Golpe com a Espada do Infinito", 70, 5, 5));
 
         Char char0 = new Char("Thanos", 2000, 30, skills0, 100);
         thanos = char0;
 
         ArrayList<Skill> skills1 = new ArrayList<>();
-        skills1.add(new Skill("Flecha explosiva", 50, 8));
-        skills1.add(new Skill("Flecha superexplosiva", 80, 20));
+        skills1.add(new Skill("Flecha explosiva", 50, 8, 8));
+        skills1.add(new Skill("Flecha superexplosiva", 80, 20, 20));
         todos.add(new Char("HawkEye", 90, 15, skills1, 35));
 
         ArrayList<Skill> skills2 = new ArrayList<>();
-        skills2.add(new Skill("Canhao de fotons", 200, 13));
-        skills2.add(new Skill("Espada de nanorobos", 70, 3));
-        skills2.add(new Skill("Misseis explosivos", 130, 20));
+        skills2.add(new Skill("Canhao de fotons", 200, 13, 13));
+        skills2.add(new Skill("Espada de nanorobos", 70, 3, 3));
+        skills2.add(new Skill("Misseis explosivos", 130, 20, 20));
         todos.add(new Char("IronMan", 700, 22, skills2, 60));
 
         //ArrayList<Skill> skills3 = new ArrayList<>();
         //todos.add(new Char("CaptainAmerica"));
 
         ArrayList<Skill> skills4 = new ArrayList<>();
-        skills4.add(new Skill("Soco com salto", 110, 10));
+        skills4.add(new Skill("Soco com salto", 110, 10, 10));
         todos.add(new Char("Hulk", 1300, 70, skills4, 85));
 
         /*ArrayList<Skill> skills5 = new ArrayList<>();

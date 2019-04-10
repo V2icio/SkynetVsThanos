@@ -11,10 +11,10 @@ public class Testes {
         a.add(2);
         a.add(3);
 
-        for(int x = a.size()-1; x >=0; x--)
+        for (Integer i : a)
+            i = i + 3;
 
-            System.out.println(a.get(x));
-
+        System.out.println(a.get(0));
 
     }
 }
