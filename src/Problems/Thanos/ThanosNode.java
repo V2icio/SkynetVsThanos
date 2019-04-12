@@ -159,31 +159,42 @@ public class ThanosNode implements Problema {
         skills0.add(new Skill("Raio com todas as Joias", 500, 50, 50));
         skills0.add(new Skill("Golpe com a Espada do Infinito", 70, 5, 5));
 
-        Char char0 = new Char("Thanos", 4000, 30, skills0, 100);
+        Char char0 = new Char("Thanos", 40000, 30, skills0, 100);
         thanos = char0;
 
         ArrayList<Skill> skills1 = new ArrayList<>();
         skills1.add(new Skill("Flecha explosiva", 50, 8, 8));
         skills1.add(new Skill("Flecha superexplosiva", 80, 20, 20));
-        todos.add(new Char("HawkEye", 90, 15, skills1, 35));
+        skills1.add(new Skill("Felcha tripla", 45, 5, 5));
+        skills1.add(new Skill("Felcha explosiva tripla", 150, 32, 32));
+        todos.add(new Char("HawkEye", 900, 15, skills1, 45));
 
         ArrayList<Skill> skills2 = new ArrayList<>();
         skills2.add(new Skill("Canhao de fotons", 200, 13, 13));
         skills2.add(new Skill("Espada de nanorobos", 70, 3, 3));
         skills2.add(new Skill("Misseis explosivos", 130, 20, 20));
-        todos.add(new Char("IronMan", 700, 22, skills2, 60));
+        skills2.add(new Skill("Martelo de nanorono", 80, 10, 10));
+        todos.add(new Char("IronMan", 7000, 22, skills2, 70));
 
-        //ArrayList<Skill> skills3 = new ArrayList<>();
-        //todos.add(new Char("CaptainAmerica"));
+        ArrayList<Skill> skills3 = new ArrayList<>();
+        skills3.add(new Skill("Lancamento de escudo", 20, 4, 4));
+        skills3.add(new Skill("Golpe com escudo", 40, 3, 3));
+        todos.add(new Char("CaptainAmerica", 3000, 10, skills3, 27));
 
         ArrayList<Skill> skills4 = new ArrayList<>();
         skills4.add(new Skill("Soco com salto", 110, 10, 10));
-        todos.add(new Char("Hulk", 1300, 70, skills4, 85));
+        skills4.add(new Skill("HULK ESMAGA", 300, 50, 50));
+        skills4.add(new Skill("Corrida com soco", 90, 6, 6));
+        skills4.add(new Skill("Sequencia agressiva", 150, 16, 16));
+        todos.add(new Char("Hulk", 13000, 70, skills4, 95));
 
-        /*ArrayList<Skill> skills5 = new ArrayList<>();
-        todos.add(new Char("Thor"));
+        ArrayList<Skill> skills5 = new ArrayList<>();
+        skills5.add(new Skill("Arremesso rompedor de tormentas", 500, 35, 35));
+        skills5.add(new Skill("Salto com trovao", 150, 5, 5));
+        skills5.add(new Skill("O Deus to Trovao", 300, 40, 40));
+        todos.add(new Char("Thor", 10000, 80, skills5, 100));
 
-        ArrayList<Skill> skills6 = new ArrayList<>();
+        /*ArrayList<Skill> skills6 = new ArrayList<>();
         todos.add(new Char("BlackWidow"));
 
         ArrayList<Skill> skills7 = new ArrayList<>();
