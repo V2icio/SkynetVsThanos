@@ -5,9 +5,10 @@ public class Testes {
 
     public static void main(String[] args) {
 
-        int a = Integer.MAX_VALUE;
+        int x = 2;
+        x = x / 10;
 
-        System.out.println(a);
+        System.out.println(x);
 
     }
 }

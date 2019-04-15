@@ -140,7 +140,7 @@ public class ThanosNode implements Problema {
             total -= c.peso;//diminuo o peso dos personagens vivos
         }
 
-        total = total + (thanos.vida / 10);//somo a vida do thanos / 100
+        total = total + (thanos.vida / 100);//somo a vida do thanos / 100
 
         return total;
     }
@@ -159,8 +159,7 @@ public class ThanosNode implements Problema {
         skills0.add(new Skill("Raio com todas as Joias", 500, 50, 50));
         skills0.add(new Skill("Golpe com a Espada do Infinito", 70, 5, 5));
 
-        Char char0 = new Char("Thanos", 40000, 30, skills0, 100);
-        thanos = char0;
+        thanos = new Char("Thanos", 40000, 30, skills0, 100);
 
         ArrayList<Skill> skills1 = new ArrayList<>();
         skills1.add(new Skill("Flecha explosiva", 50, 8, 8));
@@ -174,7 +173,7 @@ public class ThanosNode implements Problema {
         skills2.add(new Skill("Espada de nanorobos", 70, 3, 3));
         skills2.add(new Skill("Misseis explosivos", 130, 20, 20));
         skills2.add(new Skill("Martelo de nanorono", 80, 10, 10));
-        todos.add(new Char("IronMan", 7000, 22, skills2, 70));
+        todos.add(new Char("IronMan", 7000, 32, skills2, 70));
 
         ArrayList<Skill> skills3 = new ArrayList<>();
         skills3.add(new Skill("Lancamento de escudo", 20, 4, 4));
@@ -186,7 +185,7 @@ public class ThanosNode implements Problema {
         skills4.add(new Skill("HULK ESMAGA", 300, 50, 50));
         skills4.add(new Skill("Corrida com soco", 90, 6, 6));
         skills4.add(new Skill("Sequencia agressiva", 150, 16, 16));
-        todos.add(new Char("Hulk", 13000, 70, skills4, 95));
+        todos.add(new Char("Hulk", 13000, 75, skills4, 95));
 
         ArrayList<Skill> skills5 = new ArrayList<>();
         skills5.add(new Skill("Arremesso rompedor de tormentas", 500, 35, 35));
@@ -197,10 +196,17 @@ public class ThanosNode implements Problema {
         /*ArrayList<Skill> skills6 = new ArrayList<>();
         todos.add(new Char("BlackWidow"));
 
+        */
         ArrayList<Skill> skills7 = new ArrayList<>();
-        todos.add(new Char("DrStrange"));
+        skills7.add(new Skill("Adagas de Denak", 70, 8, 8));
+        skills7.add(new Skill("Espada Mistica", 80, 5, 5));
+        skills7.add(new Skill("Chamas de Faltine", 90, 12, 12));
+        skills7.add(new Skill("Feitico de Vishanti", 200, 50, 50));
+        skills7.add(new Skill("Sete Aneis de Raggadorr", 60, 15, 15));
+        skills7.add(new Skill("Transporte para o Plano Astral", 400, 80, 80));
+        todos.add(new Char("DrStrange", 2000, 30, skills7, 87));
 
-        ArrayList<Skill> skills8 = new ArrayList<>();
+        /*ArrayList<Skill> skills8 = new ArrayList<>();
         todos.add(new Char("BlackPanther"));
 
         ArrayList<Skill> skills9 = new ArrayList<>();
