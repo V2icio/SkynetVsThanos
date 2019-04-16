@@ -29,6 +29,11 @@ public class Char {
         return new Char(nome, vida, danoBase, arrayList, peso);
     }
 
+    public String getNome(){
+
+        return nome;
+    }
+
     @Override
     public String toString(){
 

@@ -6,13 +6,12 @@ import java.util.ArrayList;
 
 public class ThanosNode implements Problema {
 
-    Char thanos, thanosFinal;
-    ArrayList<Char> chars;
-    int rodada;
-    int ultimoAtacante;
-    ArrayList<String> roteiro;
-
-    ThanosNode pai;
+    private Char thanos, thanosFinal;
+    private ArrayList<Char> chars;
+    private int rodada;
+    private int ultimoAtacante;
+    private ArrayList<String> roteiro;
+    private ThanosNode pai;
 
     public ThanosNode(){//********** NO THANOSNODE INICIAL GERAR UM ULTIMO ATACANTE ALEATORIO ************
 
@@ -45,7 +44,7 @@ public class ThanosNode implements Problema {
         return filhos;
     }
 
-    public void ataque(Char atacante, Char defensor){
+    private void ataque(Char atacante, Char defensor){
 
         Skill skill;
         for(int x = 0; x < atacante.skills.size(); x++){
@@ -69,10 +68,8 @@ public class ThanosNode implements Problema {
 
         ThanosNode thanosNode = (ThanosNode) problema;
 
-        if(thanosNode.thanos.vida == this.thanos.vida)
-            return true;
+        return (thanosNode.thanos.vida == this.thanos.vida);
 
-        return false;
     }
 
     public Problema getFinal() {
@@ -104,6 +101,14 @@ public class ThanosNode implements Problema {
     public void printa() {
 
         //************* VER COMO VOU FAZER PRA PRINTAR ********************** (se pa vou ter q mudar como funfa o roteiro)
+        if(this.pai == null){
+
+            System.out.println("\t\tHEROIS VIVOS");
+            for(Char c : chars){
+
+                System.out.println(c.nome);
+            }
+        }
     }
 
     public Problema getPai() {

@@ -98,17 +98,7 @@ public class Skynet {
         for(int x = 0; x < problema.totalPossibilidades(); x++)//inicia a hash
             hash[x] = 0;
 
-        filaPrio  = new PriorityQueue<>((p1, p2) -> {
-
-            int result = p1.pesoHeuristica() - p2.pesoHeuristica();
-
-            if(result < 0)
-                return -1;
-            if(result == 0)
-                return 0;
-            return 1;
-
-        });
+        filaPrio  = new PriorityQueue<>(Comparator.comparingInt(Problema::pesoHeuristica));
 
         problema.geraInicial();//gera o no inicial aleatorio
 
