@@ -10,7 +10,7 @@ public interface Problema {
 
     Problema getFinal();//DEVE RETORNAR O NÓ OBJETIVO/FINAL
 
-    Problema criaFilho();//DEVE COPIAR AS INFOS DO NO ATUAL PARA O NO QUE ESTÁ VINDO, SETANDO O ATUAL COMO PAI
+    Problema criaFilho();//DEVE COPIAR AS INFOS DO NO ATUAL PARA O NO QUE VAI RECEBER O RETORNO, SETANDO O ATUAL COMO PAI
 
     void geraInicial();//DEVE GERAR O ESTADO INICIAL
 

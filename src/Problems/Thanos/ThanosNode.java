@@ -3,48 +3,60 @@ package Problems.Thanos;
 import Problems.Problema;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ThanosNode implements Problema {
 
     private Char thanos, thanosFinal;
-    private ArrayList<Char> chars;
+    public ArrayList<Char> chars;
     private int rodada;
     private int ultimoAtacante;
     private ArrayList<String> roteiro;
     private ThanosNode pai;
 
-    public ThanosNode(){//********** NO THANOSNODE INICIAL GERAR UM ULTIMO ATACANTE ALEATORIO ************
+    public ThanosNode(ThanosNode pai){//********** FAZER O CHAR NAO ATACAR REPETIDO A NAO SER QUE SEJA O ULTIMO ************
 
         thanosFinal = new Char("ThanosFinal", 0, 0, null, 0);
+        this.pai = pai;
         roteiro = new ArrayList<>();
+        chars = new ArrayList<>();
     }
 
     public ArrayList<Problema> gerarSucessores() {
 
         ArrayList<Problema> filhos = new ArrayList<>();
-        ThanosNode aux;
+        ThanosNode filho, aux;
 
-        ataque(thanos, chars.get(ultimoAtacante));
-        if(chars.get(ultimoAtacante).vida < 1)
-            chars.remove(ultimoAtacante);
+        aux = (ThanosNode)criaFilho();
+
+        aux.ataque(thanos, chars.get(ultimoAtacante));
+        if(aux.chars.get(ultimoAtacante).vida < 1){
+
+            aux.roteiro.add(chars.get(ultimoAtacante).nome + " morreu.");
+            aux.chars.remove(ultimoAtacante);
+        }
 
         for(int x = 0; x < chars.size(); x++){
 
-            aux = (ThanosNode)this.criaFilho();
+            filho = (ThanosNode)aux.criaFilho();
+            filho.pai = aux.pai;
+            filho.roteiro = aux.roteiro;
 
-            ataque(aux.chars.get(x), aux.thanos);
-            if(aux.thanos.vida < 0)
-                aux.thanos.vida = 0;
+            ataque(filho.chars.get(x), filho.thanos);
 
-            aux.ultimoAtacante = x;
+            if(filho.thanos.vida < 0)
+                filho.thanos.vida = 0;
 
-            filhos.add(aux);
+            filho.ultimoAtacante = x;
+
+            filho.testaVida();
+            filhos.add(filho);
         }
 
         return filhos;
     }
 
-    private void ataque(Char atacante, Char defensor){
+    public void ataque(Char atacante, Char defensor){
 
         Skill skill;
         for(int x = 0; x < atacante.skills.size(); x++){
@@ -63,6 +75,13 @@ public class ThanosNode implements Problema {
         roteiro.add(atacante.nome + " atacou " + defensor.nome + " utilizando seu golpe padrao.");
     }
 
+    public void testaVida(){
+
+        for(Char c : chars)
+            System.out.println(c.vida);
+        System.out.println();
+    }
+
     @Override
     public boolean equals(Problema problema) {//este equals compara a vida do thanos
 
@@ -74,7 +93,7 @@ public class ThanosNode implements Problema {
 
     public Problema getFinal() {
 
-        ThanosNode thanosNode = new ThanosNode();
+        ThanosNode thanosNode = new ThanosNode(null);
         thanosNode.thanos = thanosFinal;
 
         return thanosNode;
@@ -86,21 +105,18 @@ public class ThanosNode implements Problema {
         for(Char c : chars)
             chars0.add(c.copy());
 
-        ThanosNode thanosNode = new ThanosNode();
+        ThanosNode thanosNode = new ThanosNode(this);
         thanosNode.thanos = this.thanos.copy();
-        thanosNode.pai = this;
         thanosNode.thanosFinal = this.thanosFinal;
         thanosNode.chars = chars0;
         thanosNode.ultimoAtacante = this.ultimoAtacante;
         thanosNode.rodada = this.rodada++;
-        thanosNode.roteiro = this.roteiro;
 
         return thanosNode;
     }
 
     public void printa() {
 
-        //************* VER COMO VOU FAZER PRA PRINTAR ********************** (se pa vou ter q mudar como funfa o roteiro)
         if(this.pai == null){
 
             System.out.println("\t\tHEROIS VIVOS");
@@ -108,7 +124,12 @@ public class ThanosNode implements Problema {
 
                 System.out.println(c.nome);
             }
+        } else {
+
+            for(String s : roteiro)
+                System.out.println(s);
         }
+
     }
 
     public Problema getPai() {
@@ -158,6 +179,7 @@ public class ThanosNode implements Problema {
     public void geraInicial() {
 
         ArrayList<Char> todos = new ArrayList<>();
+        Random random = new Random();
 
         ArrayList<Skill> skills0 = new ArrayList<>();
         skills0.add(new Skill("Raio com a Joia do Poder", 200, 12, 12));
@@ -275,6 +297,7 @@ public class ThanosNode implements Problema {
         todos.add(new Char("Mantis"));*/
 
         chars.addAll(todos);//mudar isso para pegar aleatorios
+        ultimoAtacante = random.nextInt(chars.size());
 
     }
 }
