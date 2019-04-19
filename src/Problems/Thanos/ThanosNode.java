@@ -32,10 +32,11 @@ public class ThanosNode implements Problema {
 
             filho.ataque(filho.chars.get(x), filho.thanos);//um dos herois ataca o thanos
 
-            if(filho.thanos.vida < 0){//se o thanos morreu deixo a vida dele como 0 para a comparacao nao bugar
+            if(filho.thanos.vida <= 0){//se o thanos morreu deixo a vida dele como 0 para a comparacao nao bugar
 
                 filho.roteiro.add("Thanos morreu.");
                 filho.thanos.vida = 0;
+                filhos.add(filho);
                 continue;//dou continue pq morto nao fala
             }
 
@@ -47,7 +48,9 @@ public class ThanosNode implements Problema {
                 filho.chars.remove(x);
             }
 
-            filhos.add(filho);//add o filho na lista de filhos
+            if(filho.chars.size() != 0)
+                filhos.add(filho);//add o filho na lista de filhos se ainda existir herois vivos
+
         }
 
         return filhos;//retorno os filhos
@@ -63,13 +66,15 @@ public class ThanosNode implements Problema {
 
                 defensor.vida -= skill.dano;
                 skill.indicaTurno += skill.cooldown;
-                roteiro.add(atacante.nome + " atacou " + defensor.nome + " utilizando " + skill.nome + ".");
+                roteiro.add(atacante.nome + " atacou " + defensor.nome + " utilizando " + skill.nome + "." + rodada +
+                        " " + defensor.vida);
                 return;
             }
         }
 
         defensor.vida -= atacante.danoBase;
-        roteiro.add(atacante.nome + " atacou " + defensor.nome + " utilizando seu golpe padrao.");
+        roteiro.add(atacante.nome + " atacou " + defensor.nome + " utilizando seu golpe padrao." + rodada +
+                " " + defensor.vida);
     }
 
     public void testaVida(){
@@ -106,7 +111,7 @@ public class ThanosNode implements Problema {
         thanosNode.thanos = this.thanos.copy();
         thanosNode.thanosFinal = this.thanosFinal;
         thanosNode.chars = chars0;
-        thanosNode.rodada = this.rodada++;
+        thanosNode.rodada = this.rodada + 1;
 
         return thanosNode;
     }
@@ -154,10 +159,13 @@ public class ThanosNode implements Problema {
         if(chars.isEmpty())
             return Integer.MAX_VALUE;
 
+        if(pai == null)
+            return 0;
+
 
         int total = 0;
 
-        total = total + rodada;//somo a rodada
+        total += rodada;//somo a rodada
 
         for(Char c : chars){
 
@@ -178,6 +186,7 @@ public class ThanosNode implements Problema {
 
         ArrayList<Char> todos = new ArrayList<>();
         Random random = new Random();
+        rodada = 0;
 
         ArrayList<Skill> skills0 = new ArrayList<>();
         skills0.add(new Skill("Raio com a Joia do Poder", 200, 12, 12));
@@ -229,7 +238,7 @@ public class ThanosNode implements Problema {
         skills7.add(new Skill("Feitico de Vishanti", 200, 50, 50));
         skills7.add(new Skill("Sete Aneis de Raggadorr", 60, 15, 15));
         skills7.add(new Skill("Transporte para o Plano Astral", 400, 80, 80));
-        todos.add(new Char("DrStrange", 2000, 30, skills7, 87));
+        //todos.add(new Char("DrStrange", 2000, 30, skills7, 87));
 
         /*ArrayList<Skill> skills8 = new ArrayList<>();
         todos.add(new Char("BlackPanther"));

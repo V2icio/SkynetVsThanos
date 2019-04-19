@@ -53,6 +53,8 @@ public class Skynet {
 
     public boolean protocolGenisys0(){
 //-----------------------------------------cria as variaveis necessarias
+        filaPrio  = new PriorityQueue<>(Comparator.comparingInt(Problema::pesoHeuristica));
+
         problema.geraInicial();//gera o no inicial aleatorio
 
         problema.printa();
@@ -65,7 +67,7 @@ public class Skynet {
 
             if(filaPrio.isEmpty()){
 
-                System.out.println("\nIMPOSSIVEL DE RESOLVER");
+                System.out.println("\nIMPOSSIVEL DE DERROTAR O THANOS");
                 return false;
             }
             problema = filaPrio.poll();
