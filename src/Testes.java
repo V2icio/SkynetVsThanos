@@ -12,17 +12,9 @@ public class Testes {
         ThanosNode thanosNode = new ThanosNode(null);
         thanosNode.geraInicial();
 
-        /*thanosNode.testaVida();
+        ArrayList<Problema> filhos = thanosNode.gerarSucessores();
 
-        ArrayList<Problema> filhos = thanosNode.gerarSucessores();*/
 
-        Char perso = thanosNode.chars.get(0).copy();
-
-        System.out.println(perso.vida);
-        System.out.println(thanosNode.chars.get(0).vida);
-
-        thanosNode.ataque(thanosNode.chars.get(0), perso);
-        System.out.println(perso.vida);
 
     }
 }

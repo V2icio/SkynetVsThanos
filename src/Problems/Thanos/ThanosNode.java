@@ -40,16 +40,15 @@ public class ThanosNode implements Problema {
 
             filho = (ThanosNode)aux.criaFilho();
             filho.pai = aux.pai;
-            filho.roteiro = aux.roteiro;
+            filho.roteiro.add(aux.roteiro.get(0));
 
-            ataque(filho.chars.get(x), filho.thanos);
+            filho.ataque(filho.chars.get(x), filho.thanos);
 
             if(filho.thanos.vida < 0)
                 filho.thanos.vida = 0;
 
-            filho.ultimoAtacante = x;
 
-            filho.testaVida();
+            filho.ultimoAtacante = x;
             filhos.add(filho);
         }
 
@@ -77,8 +76,8 @@ public class ThanosNode implements Problema {
 
     public void testaVida(){
 
-        for(Char c : chars)
-            System.out.println(c.vida);
+        System.out.println(thanos.vida);
+        printa();
         System.out.println();
     }
 
