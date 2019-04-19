@@ -10,7 +10,6 @@ public class ThanosNode implements Problema {
     private Char thanos, thanosFinal;
     public ArrayList<Char> chars;
     private int rodada;
-    private int ultimoAtacante;
     private ArrayList<String> roteiro;
     private ThanosNode pai;
 
@@ -25,34 +24,33 @@ public class ThanosNode implements Problema {
     public ArrayList<Problema> gerarSucessores() {
 
         ArrayList<Problema> filhos = new ArrayList<>();
-        ThanosNode filho, aux;
-
-        aux = (ThanosNode)criaFilho();
-
-        aux.ataque(thanos, chars.get(ultimoAtacante));
-        if(aux.chars.get(ultimoAtacante).vida < 1){
-
-            aux.roteiro.add(chars.get(ultimoAtacante).nome + " morreu.");
-            aux.chars.remove(ultimoAtacante);
-        }
+        ThanosNode filho;
 
         for(int x = 0; x < chars.size(); x++){
 
-            filho = (ThanosNode)aux.criaFilho();
-            filho.pai = aux.pai;
-            filho.roteiro.add(aux.roteiro.get(0));
+            filho = (ThanosNode)criaFilho();//gero um filho copia do pai, pordem setando o this como pai
 
-            filho.ataque(filho.chars.get(x), filho.thanos);
+            filho.ataque(filho.chars.get(x), filho.thanos);//um dos herois ataca o thanos
 
-            if(filho.thanos.vida < 0)
+            if(filho.thanos.vida < 0){//se o thanos morreu deixo a vida dele como 0 para a comparacao nao bugar
+
+                filho.roteiro.add("Thanos morreu.");
                 filho.thanos.vida = 0;
+                continue;//dou continue pq morto nao fala
+            }
 
+            filho.ataque(filho.thanos, filho.chars.get(x));//faco o thanos contraatacar
 
-            filho.ultimoAtacante = x;
-            filhos.add(filho);
+            if(filho.chars.get(x).vida < 1){//se o heroi morreu removo ele e coloco isso no roteiro
+
+                filho.roteiro.add(chars.get(x).nome + " morreu.");
+                filho.chars.remove(x);
+            }
+
+            filhos.add(filho);//add o filho na lista de filhos
         }
 
-        return filhos;
+        return filhos;//retorno os filhos
     }
 
     public void ataque(Char atacante, Char defensor){
@@ -108,7 +106,6 @@ public class ThanosNode implements Problema {
         thanosNode.thanos = this.thanos.copy();
         thanosNode.thanosFinal = this.thanosFinal;
         thanosNode.chars = chars0;
-        thanosNode.ultimoAtacante = this.ultimoAtacante;
         thanosNode.rodada = this.rodada++;
 
         return thanosNode;
@@ -127,6 +124,8 @@ public class ThanosNode implements Problema {
 
             for(String s : roteiro)
                 System.out.println(s);
+
+            System.out.println();
         }
 
     }
@@ -296,7 +295,6 @@ public class ThanosNode implements Problema {
         todos.add(new Char("Mantis"));*/
 
         chars.addAll(todos);//mudar isso para pegar aleatorios
-        ultimoAtacante = random.nextInt(chars.size());
 
     }
 }
