@@ -44,7 +44,7 @@ public class ThanosNode implements Problema {
 
             if(filho.chars.get(x).vida < 1){//se o heroi morreu removo ele e coloco isso no roteiro
 
-                filho.roteiro.add(chars.get(x).nome + " morreu.");
+                filho.roteiro.add(filho.chars.get(x).nome + " morreu.");
                 filho.chars.remove(x);
             }
 
@@ -116,15 +116,21 @@ public class ThanosNode implements Problema {
         return thanosNode;
     }
 
+    public void printaHerois(){
+
+        System.out.println("\t\tHEROIS VIVOS");
+        for(Char c : chars){
+
+            System.out.println(c.nome);
+        }
+        System.out.println();
+    }
+
     public void printa() {
 
         if(this.pai == null){
 
-            System.out.println("\t\tHEROIS VIVOS");
-            for(Char c : chars){
-
-                System.out.println(c.nome);
-            }
+            printaHerois();
         } else {
 
             for(String s : roteiro)
@@ -185,7 +191,6 @@ public class ThanosNode implements Problema {
     public void geraInicial() {
 
         ArrayList<Char> todos = new ArrayList<>();
-        Random random = new Random();
         rodada = 0;
 
         ArrayList<Skill> skills0 = new ArrayList<>();
@@ -225,7 +230,7 @@ public class ThanosNode implements Problema {
         skills5.add(new Skill("Arremesso rompedor de tormentas", 500, 35, 35));
         skills5.add(new Skill("Salto com trovao", 150, 5, 5));
         skills5.add(new Skill("O Deus to Trovao", 300, 40, 40));
-        todos.add(new Char("Thor", 10000, 80, skills5, 100));
+        todos.add(new Char("Thor", 10000, 90, skills5, 100));
 
         /*ArrayList<Skill> skills6 = new ArrayList<>();
         todos.add(new Char("BlackWidow"));

@@ -9,6 +9,22 @@ public class Testes {
 
     public static void main(String[] args) {
 
+
+        ArrayList<String> a = new ArrayList<>();
+        a.add("a");
+        a.add("b");
+        a.add("c");
+
+        for(int x = 0; x < a.size(); x++){
+
+            if(x == 0)
+                a.remove(x);
+
+            System.out.println(x);
+        }
+
+
+
         /*jogoDosOitoNode.matriz[0][0] = 1;
         jogoDosOitoNode.matriz[0][1] = 2;
         jogoDosOitoNode.matriz[0][2] = 3;
