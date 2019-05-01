@@ -8,6 +8,7 @@ public class JogoDosOitoNode implements Problema {
     public int[][] matriz = new int[3][3];
     public int[][] fim = new int[3][3];
     public int pesoMovimento;
+    public int pesoNo;
 
     JogoDosOitoNode pai;
 
@@ -39,6 +40,11 @@ public class JogoDosOitoNode implements Problema {
     public int tipo(){
 
         return 2;
+    }
+
+    public int getPesoHeuristica(){
+
+        return pesoNo;
     }
 
     public ArrayList<Problema> gerarSucessores() {

@@ -12,6 +12,7 @@ public class ThanosNode implements Problema {
     private int rodada;
     private ArrayList<String> roteiro;
     private ThanosNode pai;
+    public int pesoNo;
 
     public ThanosNode(ThanosNode pai){//********** FAZER O CHAR NAO ATACAR REPETIDO A NAO SER QUE SEJA O ULTIMO ************
 
@@ -48,12 +49,19 @@ public class ThanosNode implements Problema {
                 filho.chars.remove(x);
             }
 
+            pesoNo = pesoHeuristica();
+
             if(filho.chars.size() != 0)
                 filhos.add(filho);//add o filho na lista de filhos se ainda existir herois vivos
 
         }
 
         return filhos;//retorno os filhos
+    }
+
+    public int getPesoHeuristica(){
+
+        return pesoNo;
     }
 
     public void ataque(Char atacante, Char defensor){

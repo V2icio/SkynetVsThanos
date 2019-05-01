@@ -24,8 +24,10 @@ public interface Problema {
 
     int totalPossibilidades();//DEVE RETORNAR O TOTAL DE COMBINACOES DOS ESTADOS
 
-    int pesoHeuristica();//DEVE RETORNAR O PESO DO NO NA HEURISTICA
+    int pesoHeuristica();//DEVE CALCULAR O PESO DO NO NA HEURISTICA
 
     int tipo();//0 PARA NAO COMPARA ESTADOS, 1 PARA COMPARA SEM HASH, 2 PARA COMPARA COM HASH
+
+    int getPesoHeuristica();//DEVE RETORNAR O PESO DA HEURISTICA DO NO
 
 }
