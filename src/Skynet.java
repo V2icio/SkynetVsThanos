@@ -11,7 +11,7 @@ public class Skynet {
     Queue<Problema> fila;
     ArrayList<Problema> solucao;
     int[] hash;
-    int tipo;
+    int tipo, totalAbertos;
     long hashCode;
     Object[] base;
     public boolean ver;
@@ -27,6 +27,7 @@ public class Skynet {
         base = problema.base();
         estadoFinal = problema.getFinal();
         tipo = problema.tipo();
+        totalAbertos = 0;
 
         check = true;
 
@@ -35,7 +36,7 @@ public class Skynet {
             ver = protocolGenisys0();
         } else if (tipo == 1){
 
-            System.out.println("TENHO Q IMPLEMENTAR");
+            ver = protocolGenisys1();
         } else
             ver = protocolGenisys2();
 
@@ -53,7 +54,7 @@ public class Skynet {
 
     public boolean protocolGenisys0(){
 //-----------------------------------------cria as variaveis necessarias
-        filaPrio  = new PriorityQueue<>(Comparator.comparingInt(Problema::pesoHeuristica));
+        filaPrio = new PriorityQueue<>(Comparator.comparingInt(Problema::getPesoHeuristica));
 
         problema.geraInicial();//gera o no inicial aleatorio
 
@@ -67,12 +68,13 @@ public class Skynet {
 
             if(filaPrio.isEmpty()){
 
-                System.out.println("\nIMPOSSIVEL DE DERROTAR O THANOS");
+                System.out.println("\nNENHUMA SOLUCAO ENCONTRADA");
                 return false;
             }
             problema = filaPrio.poll();
 
             sucessores = problema.gerarSucessores();//popula o array com os sucessores do problema
+            totalAbertos += sucessores.size();
 
             //-----------------------------------------//roda os sucessores
             for(int x = 0; x < sucessores.size(); x++){
@@ -93,14 +95,54 @@ public class Skynet {
         return true;
     }
 
+    public boolean protocolGenisys1(){
+//-----------------------------------------cria as variaveis necessarias
+
+        fila = new LinkedList<>();
+
+        problema.geraInicial();//gera o no inicial aleatorio
+
+        problema.printa();
+
+        fila.add(problema);
+        fim = null;
+        ArrayList<Problema> sucessores;//array com os sucessores
+//-----------------------------------------execucao
+        while(check){
+
+            if(fila.isEmpty()){
+
+                System.out.println("\nNENHUMA SOLUCAO ENCONTRADA");
+                return false;
+            }
+            problema = fila.poll();
+
+            sucessores = problema.gerarSucessores();//popula o array com os sucessores do problema
+            totalAbertos += sucessores.size();
+
+            //-----------------------------------------//roda os sucessores
+            for(int x = 0; x < sucessores.size(); x++){
+
+                aux = sucessores.get(x);//um auxiliar recebe um dos sucessores
+                //-----------------------------------------verificacoes
+                if (aux.equals(estadoFinal)) {
+
+                    check = false;
+                    fim = aux;//para saber a partir de qual no montar o caminho de volta
+                    break;
+                }
+                fila.add(aux);//add o sucessor
+
+            }
+        }
+
+        return true;
+    }
+
     public boolean protocolGenisys2(){
 //-----------------------------------------cria as variaveis necessarias
-        hash = new int[problema.totalPossibilidades()];
 
-        for(int x = 0; x < problema.totalPossibilidades(); x++)//inicia a hash
-            hash[x] = 0;
-
-        filaPrio  = new PriorityQueue<>(Comparator.comparingInt(Problema::getPesoHeuristica));
+        filaPrio = new PriorityQueue<>(Comparator.comparingInt(Problema::getPesoHeuristica));
 
         problema.geraInicial();//gera o no inicial aleatorio
 
@@ -114,12 +156,13 @@ public class Skynet {
 
             if(filaPrio.isEmpty()){
 
-                System.out.println("\nIMPOSSIVEL DE RESOLVER");
+                System.out.println("\nNENHUMA SOLUCAO ENCONTRADA");
                 return false;
             }
             problema = filaPrio.poll();
 
             sucessores = problema.gerarSucessores();//popula o array com os sucessores do problema
+            totalAbertos += sucessores.size();
 
             //-----------------------------------------//roda os sucessores
             for(int x = 0; x < sucessores.size(); x++){
@@ -160,6 +203,8 @@ public class Skynet {
 
         for(int t = solucao.size()-1; t >= 0; t--)
             solucao.get(t).printa();
+
+        System.out.println("Um total de " + totalAbertos + " nos abertos.");
 
     }
 
