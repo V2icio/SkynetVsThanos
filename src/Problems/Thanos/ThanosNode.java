@@ -355,19 +355,19 @@ public class ThanosNode implements Problema {
         todos.add(new Char(20, charsInfo.get(20).vida, null));
         todos.add(new Char(21, charsInfo.get(21).vida, null));
 
-        /*for(int x = 0; x < 4; x++){
+        for(int x = 0; x < 4; x++){
 
             int y = random.nextInt(todos.size());
 
             chars.add(todos.get(y));
             todos.remove(y);
 
-        }*/
+        }
 
-        chars.add(todos.get(4));
+        /*chars.add(todos.get(4));
         chars.add(todos.get(2));
         chars.add(todos.get(3));
-        chars.add(todos.get(14));
+        chars.add(todos.get(14));*/
 
     }
 }
