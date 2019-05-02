@@ -3,20 +3,22 @@ package Problems.Thanos;
 import Problems.Problema;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class ThanosNode implements Problema {
 
-    private Char thanos, thanosFinal;
+    private Char thanos;
+    private Char thanosFinal = new Char(999, 0, null);
     public ArrayList<Char> chars;
     private int rodada;
     private ArrayList<String> roteiro;
     private ThanosNode pai;
     public int pesoNo;
+    private static ArrayList<CharInfo> charsInfo;
+    private static ArrayList<SkillInfo> skillsInfo;
+    private String ultimoAtacante;
 
-    public ThanosNode(ThanosNode pai){//********** FAZER O CHAR NAO ATACAR REPETIDO A NAO SER QUE SEJA O ULTIMO ************
+    public ThanosNode(ThanosNode pai){
 
-        thanosFinal = new Char("ThanosFinal", 0, 0, null, 0);
         this.pai = pai;
         roteiro = new ArrayList<>();
         chars = new ArrayList<>();
@@ -31,7 +33,16 @@ public class ThanosNode implements Problema {
 
             filho = (ThanosNode)criaFilho();//gero um filho copia do pai, pordem setando o this como pai
 
+            if(charsInfo.get(filho.chars.get(x).id).nome == filho.ultimoAtacante && chars.size() > 1){
+
+                filho = null;
+                continue;
+            }
+
+            filho.roteiro.add("RODADA "+filho.rodada);
+
             filho.ataque(filho.chars.get(x), filho.thanos);//um dos herois ataca o thanos
+            filho.ultimoAtacante = charsInfo.get(filho.chars.get(x).id).nome;
 
             if(filho.thanos.vida <= 0){//se o thanos morreu deixo a vida dele como 0 para a comparacao nao bugar
 
@@ -45,19 +56,18 @@ public class ThanosNode implements Problema {
 
             if(filho.chars.get(x).vida <= 0){//se o heroi morreu removo ele e coloco isso no roteiro
 
-                filho.roteiro.add(filho.chars.get(x).nome + " morreu.");
+                filho.roteiro.add(charsInfo.get(filho.chars.get(x).id).nome + " morreu.");
                 filho.chars.remove(x);
             }
 
             filho.pesoNo = filho.pesoHeuristica();
 
-            if(filho.chars != null) {
+            if(filho.chars.size() != 0) {
 
                 filhos.add(filho);//add o filho na lista de filhos se ainda existir herois vivos
             } else {
 
                 filho = null;
-                System.out.println("a");
                 return null;
             }
         }
@@ -72,30 +82,33 @@ public class ThanosNode implements Problema {
 
     public void ataque(Char atacante, Char defensor){
 
+        if(atacante.skills == null){
+
+            defensor.vida -= charsInfo.get(atacante.id).danoBase;
+            roteiro.add(charsInfo.get(atacante.id).nome + " atacou " + charsInfo.get(defensor.id).nome + " utilizando seu golpe padrao." +
+                    " Vida restante: " + defensor.vida);
+            return;
+        }
+
+
         Skill skill;
         for(int x = 0; x < atacante.skills.size(); x++){
 
             skill = atacante.skills.get(x);
             if(skill.indicaTurno < rodada){
 
-                defensor.vida -= skill.dano;
-                skill.indicaTurno += skill.cooldown;
-                roteiro.add(atacante.nome + " atacou " + defensor.nome + " utilizando " + skill.nome + "." + rodada +
-                        " " + defensor.vida);
+                defensor.vida -= skillsInfo.get(skill.id).dano;
+                skill.indicaTurno += skillsInfo.get(skill.id).cooldown;
+                roteiro.add(charsInfo.get(atacante.id).nome + " atacou " + charsInfo.get(defensor.id).nome + " utilizando " + 
+                        skillsInfo.get(skill.id).nome + ". Vida restante: " + defensor.vida);
+
                 return;
             }
         }
 
-        defensor.vida -= atacante.danoBase;
-        roteiro.add(atacante.nome + " atacou " + defensor.nome + " utilizando seu golpe padrao." + rodada +
-                " " + defensor.vida);
-    }
-
-    public void testaVida(){
-
-        System.out.println(thanos.vida);
-        printa();
-        System.out.println();
+        defensor.vida -= charsInfo.get(atacante.id).danoBase;
+        roteiro.add(charsInfo.get(atacante.id).nome + " atacou " + charsInfo.get(defensor.id).nome + " utilizando seu golpe padrao." +
+                " Vida restante: " + defensor.vida);
     }
 
     @Override
@@ -122,10 +135,11 @@ public class ThanosNode implements Problema {
             chars0.add(c.copy());
 
         ThanosNode thanosNode = new ThanosNode(this);
-        thanosNode.thanos = this.thanos.copy();
+        thanosNode.thanos = thanos.copy();
         thanosNode.thanosFinal = this.thanosFinal;
         thanosNode.chars = chars0;
         thanosNode.rodada = this.rodada + 1;
+        thanosNode.ultimoAtacante = this.ultimoAtacante;
 
         return thanosNode;
     }
@@ -135,7 +149,7 @@ public class ThanosNode implements Problema {
         System.out.println("\t\tHEROIS VIVOS");
         for(Char c : chars){
 
-            System.out.println(c.nome);
+            System.out.println(charsInfo.get(c.id).nome);
         }
         System.out.println();
     }
@@ -178,7 +192,6 @@ public class ThanosNode implements Problema {
 
         if(chars == null){
 
-            System.out.println("c");
             return Integer.MAX_VALUE;
         }
 
@@ -188,14 +201,9 @@ public class ThanosNode implements Problema {
 
         int total = 0;
 
-        total += rodada;//somo a rodada
+        total = total + (rodada * 2);//somo a rodada
 
-        for(Char c : chars){
-
-            total -= c.peso;//diminuo o peso dos personagens vivos
-        }
-
-        total = total + (thanos.vida / 100);//somo a vida do thanos / 100
+        total = total + (thanos.vida / 10);//somo a vida do thanos / 100
 
         return total;
     }
@@ -207,123 +215,123 @@ public class ThanosNode implements Problema {
 
     public void geraInicial() {
 
+        charsInfo = new ArrayList<>();
+        skillsInfo = new ArrayList<>();
+
+        charsInfo.add(new CharInfo(0, "Thanos", 2800, 160));
+        skillsInfo.add(new SkillInfo(0, "Raio com a Joia do Poder", 300, 12, 12));
+        skillsInfo.add(new SkillInfo(1, "Golpe com a Espada do Infinito", 200, 4, 4));
+
+        charsInfo.add(new CharInfo(1, "HawkEye", 150, 15));
+        skillsInfo.add(new SkillInfo(2, "Flecha explosiva", 50, 8, 0));
+
+        charsInfo.add(new CharInfo(2, "IronMan", 1000, 60));
+        skillsInfo.add(new SkillInfo(3, "Canhao de fotons", 240, 20, 20));
+        skillsInfo.add(new SkillInfo(4, "Misseis explosivos", 100, 13, 13));
+
+        charsInfo.add(new CharInfo(3, "CaptainAmerica", 500, 20));
+        skillsInfo.add(new SkillInfo(5, "Golpe com escudo", 40, 3, 3));
+
+        charsInfo.add(new CharInfo(4, "Hulk", 1300, 95));
+        skillsInfo.add(new SkillInfo(6, "Soco com salto", 130, 5, 5));
+
+        charsInfo.add(new CharInfo(5, "Thor", 1100, 80));
+        skillsInfo.add(new SkillInfo(7, "Arremesso rompedor de tormentas", 500, 15, 15));
+        skillsInfo.add(new SkillInfo(8, "Salto com trovao", 150, 5, 5));
+
+        charsInfo.add(new CharInfo(6, "DrStrange", 350, 30));
+        skillsInfo.add(new SkillInfo(9, "Espada Mistica", 80, 5, 5));
+        skillsInfo.add(new SkillInfo(10, "Chamas de Faltine", 90, 12, 12));
+        skillsInfo.add(new SkillInfo(11, "Feitico de Vishanti", 200, 50, 50));
+
+        charsInfo.add(new CharInfo(7, "BlackWidow", 150, 10));
+
+        charsInfo.add(new CharInfo(8, "BlackPanther", 800, 30));
+
+        charsInfo.add(new CharInfo(9, "SpiderMan", 400, 15));
+
+        charsInfo.add(new CharInfo(10, "AntMan", 600, 5));
+        skillsInfo.add(new SkillInfo(12, "Golias", 150, 5, 5));
+
+        charsInfo.add(new CharInfo(11, "WarMachine", 900, 50));
+        skillsInfo.add(new SkillInfo(13, "Bombas Napalm", 120, 7, 7));
+
+        charsInfo.add(new CharInfo(12, "Falcon", 200, 15));
+
+        charsInfo.add(new CharInfo(13, "Vision", 800, 25));
+
+        charsInfo.add(new CharInfo(14, "ScarletWitch", 250, 55));
+
+        charsInfo.add(new CharInfo(15, "WinterSoldier", 400, 35));
+
+        ArrayList<SkillInfo> skills15 = new ArrayList<>();
+        todos.add(new CharInfo("WinterSoldier"));
+
+        ArrayList<SkillInfo> skills17 = new ArrayList<>();
+        todos.add(new CharInfo("StarLord"));
+
+        ArrayList<SkillInfo> skills18 = new ArrayList<>();
+        todos.add(new CharInfo("Gamora"));
+
+        ArrayList<SkillInfo> skills19 = new ArrayList<>();
+        todos.add(new CharInfo("Drax"));
+
+        ArrayList<SkillInfo> skills20 = new ArrayList<>();
+        todos.add(new CharInfo("RocketRacoon"));
+
+        ArrayList<SkillInfo> skills21 = new ArrayList<>();
+        todos.add(new CharInfo("Groot"));
+
+        ArrayList<SkillInfo> skills22 = new ArrayList<>();
+        todos.add(new CharInfo("Nebula"));*/
+
         ArrayList<Char> todos = new ArrayList<>();
         rodada = 0;
 
         ArrayList<Skill> skills0 = new ArrayList<>();
-        skills0.add(new Skill("Raio com a Joia do Poder", 200, 12, 12));
-        skills0.add(new Skill("Raio com todas as Joias", 500, 50, 50));
-        skills0.add(new Skill("Golpe com a Espada do Infinito", 70, 5, 5));
-
-        thanos = new Char("Thanos", 1000, 10, skills0, 100);
+        skills0.add(new Skill(0, skillsInfo.get(0).indicaTurno));
+        skills0.add(new Skill(1, skillsInfo.get(1).indicaTurno));
+        thanos = new Char(0, charsInfo.get(0).vida, skills0);
 
         ArrayList<Skill> skills1 = new ArrayList<>();
-        skills1.add(new Skill("Flecha explosiva", 50, 8, 8));
-        skills1.add(new Skill("Flecha superexplosiva", 80, 20, 20));
-        skills1.add(new Skill("Felcha tripla", 45, 5, 5));
-        skills1.add(new Skill("Felcha explosiva tripla", 150, 32, 32));
-        //todos.add(new Char("HawkEye", 900, 15, skills1, 45));
+        skills1.add(new Skill(2, skillsInfo.get(2).indicaTurno));
+        todos.add(new Char(1, charsInfo.get(1).vida, null));
 
         ArrayList<Skill> skills2 = new ArrayList<>();
-        skills2.add(new Skill("Canhao de fotons", 200, 13, 13));
-        skills2.add(new Skill("Espada de nanorobos", 70, 3, 3));
-        skills2.add(new Skill("Misseis explosivos", 130, 20, 20));
-        skills2.add(new Skill("Martelo de nanorono", 80, 10, 10));
-        todos.add(new Char("IronMan", 80000, 50, skills2, 70));
+        skills2.add(new Skill(3, skillsInfo.get(3).indicaTurno));
+        skills2.add(new Skill(4, skillsInfo.get(4).indicaTurno));
+        todos.add(new Char(2, charsInfo.get(2).vida, skills2));
 
         ArrayList<Skill> skills3 = new ArrayList<>();
-        skills3.add(new Skill("Lancamento de escudo", 20, 4, 4));
-        skills3.add(new Skill("Golpe com escudo", 40, 3, 3));
-        todos.add(new Char("CaptainAmerica", 3000, 10, skills3, 27));
+        skills3.add(new Skill(5, skillsInfo.get(5).indicaTurno));
+        todos.add(new Char(3, charsInfo.get(3).vida, skills3));
 
         ArrayList<Skill> skills4 = new ArrayList<>();
-        skills4.add(new Skill("Soco com salto", 110, 10, 10));
-        skills4.add(new Skill("HULK ESMAGA", 300, 50, 50));
-        skills4.add(new Skill("Corrida com soco", 90, 6, 6));
-        skills4.add(new Skill("Sequencia agressiva", 150, 16, 16));
-        //todos.add(new Char("Hulk", 13000, 75, skills4, 95));
+        skills4.add(new Skill(6, skillsInfo.get(6).indicaTurno));
+        todos.add(new Char(4, charsInfo.get(4).vida, skills4));
 
         ArrayList<Skill> skills5 = new ArrayList<>();
-        skills5.add(new Skill("Arremesso rompedor de tormentas", 500, 35, 35));
-        skills5.add(new Skill("Salto com trovao", 150, 5, 5));
-        skills5.add(new Skill("O Deus to Trovao", 300, 40, 40));
-        todos.add(new Char("Thor", 954, 90, skills5, 100));
+        skills5.add(new Skill(7, skillsInfo.get(7).indicaTurno));
+        skills5.add(new Skill(8, skillsInfo.get(8).indicaTurno));
+        todos.add(new Char(5, charsInfo.get(5).vida, skills5));
 
-        /*ArrayList<Skill> skills6 = new ArrayList<>();
-        todos.add(new Char("BlackWidow"));
+        ArrayList<Skill> skills6 = new ArrayList<>();
+        skills6.add(new Skill(9, skillsInfo.get(9).indicaTurno));
+        skills6.add(new Skill(10, skillsInfo.get(10).indicaTurno));
+        skills6.add(new Skill(11, skillsInfo.get(11).indicaTurno));
+        todos.add(new Char(6, charsInfo.get(6).vida, skills6));
 
-        */
-        ArrayList<Skill> skills7 = new ArrayList<>();
-        skills7.add(new Skill("Adagas de Denak", 70, 8, 8));
-        skills7.add(new Skill("Espada Mistica", 80, 5, 5));
-        skills7.add(new Skill("Chamas de Faltine", 90, 12, 12));
-        skills7.add(new Skill("Feitico de Vishanti", 200, 50, 50));
-        skills7.add(new Skill("Sete Aneis de Raggadorr", 60, 15, 15));
-        skills7.add(new Skill("Transporte para o Plano Astral", 400, 80, 80));
-        //todos.add(new Char("DrStrange", 2000, 30, skills7, 87));
+        todos.add(new Char(7, charsInfo.get(7).vida, null));
+        todos.add(new Char(8, charsInfo.get(8).vida, null));
+        todos.add(new Char(9, charsInfo.get(9).vida, null));
 
-        /*ArrayList<Skill> skills8 = new ArrayList<>();
-        todos.add(new Char("BlackPanther"));
-
-        ArrayList<Skill> skills9 = new ArrayList<>();
-        todos.add(new Char("SpiderMan"));
-
-        ArrayList<Skill> skills10 = new ArrayList<>();
-        todos.add(new Char("AntMan"));
+        ArrayList<Skill> skills10 =  new ArrayList<>();
+        skills10.add(new Skill(12, skillsInfo.get(11).indicaTurno));
+        todos.add(new Char(10, charsInfo.get(10).vida, skills10));
 
         ArrayList<Skill> skills11 = new ArrayList<>();
-        todos.add(new Char("WarMachine"));
-
-        ArrayList<Skill> skills12 = new ArrayList<>();
-        todos.add(new Char("Falcon"));
-
-        ArrayList<Skill> skills13 = new ArrayList<>();
-        todos.add(new Char("Vision"));
-
-        ArrayList<Skill> skills14 = new ArrayList<>();
-        todos.add(new Char("ScarletWitch"));
-
-        ArrayList<Skill> skills15 = new ArrayList<>();
-        todos.add(new Char("WinterSoldier"));
-
-        ArrayList<Skill> skills16 = new ArrayList<>();
-        todos.add(new Char("Loki"));
-
-        ArrayList<Skill> skills17 = new ArrayList<>();
-        todos.add(new Char("StarLord"));
-
-        ArrayList<Skill> skills18 = new ArrayList<>();
-        todos.add(new Char("Gamora"));
-
-        ArrayList<Skill> skills19 = new ArrayList<>();
-        todos.add(new Char("Drax"));
-
-        ArrayList<Skill> skills20 = new ArrayList<>();
-        todos.add(new Char("RocketRacoon"));
-
-        ArrayList<Skill> skills21 = new ArrayList<>();
-        todos.add(new Char("Groot"));
-
-        ArrayList<Skill> skills22 = new ArrayList<>();
-        todos.add(new Char("Nebula"));
-
-        ArrayList<Skill> skills23 = new ArrayList<>();
-        todos.add(new Char("Heimdall"));
-
-        ArrayList<Skill> skills24 = new ArrayList<>();
-        todos.add(new Char("Shuri"));
-
-        ArrayList<Skill> skills25 = new ArrayList<>();
-        todos.add(new Char("Okoye"));
-
-        ArrayList<Skill> skills26 = new ArrayList<>();
-        todos.add(new Char("MBaku"));
-
-        ArrayList<Skill> skills27 = new ArrayList<>();
-        todos.add(new Char("Wong"));
-
-        ArrayList<Skill> skills28 = new ArrayList<>();
-        todos.add(new Char("Mantis"));*/
+        skills11.add(new Skill(13, skillsInfo.get(13).indicaTurno));
+        todos.add(new Char(11, charsInfo.get(11).vida, skills11));
 
         chars.addAll(todos);//mudar isso para pegar aleatorios
 

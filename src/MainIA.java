@@ -11,7 +11,6 @@ public class MainIA {
 
         ThanosNode thanosNode = new ThanosNode(null);
 
-
         Problema problema0 = jogoDosOitoNode;
         Problema problema1 = thanosNode;
 

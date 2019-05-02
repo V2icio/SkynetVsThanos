@@ -6,9 +6,9 @@ public interface Problema {
 
     ArrayList<Problema> gerarSucessores();//DEVE DERIVAR O NO ATUAL (THIS) E RETORNAR UMA SET COM AS POSSIBILIDADES
 
-    boolean equals(Problema problema);//DEVE COMPARAR O NO ATUAL (THIS) COM O NO QUE ESTÁ VINDO, TRUE PARA IGUAL FALSE PARA DIF
+    boolean equals(Problema problema);//DEVE COMPARAR O NO ATUAL (THIS) COM O NO QUE ESTA VINDO, TRUE PARA IGUAL FALSE PARA DIF
 
-    Problema getFinal();//DEVE RETORNAR O NÓ OBJETIVO/FINAL
+    Problema getFinal();//DEVE RETORNAR O NO OBJETIVO/FINAL
 
     Problema criaFilho();//DEVE COPIAR AS INFOS DO NO ATUAL PARA O NO QUE VAI RECEBER O RETORNO, SETANDO O ATUAL COMO PAI
 
@@ -16,7 +16,7 @@ public interface Problema {
 
     void printa();//DEVE PRINTAR O ESTADO
 
-    Problema getPai();//DEVE RETORNAR O PAI DO NÓ ATUAL (THIS)
+    Problema getPai();//DEVE RETORNAR O PAI DO No ATUAL (THIS)
 
     Object[] base();//DEVE RETORNAR A BASE HASHAVEL DO PROBLEMA
 

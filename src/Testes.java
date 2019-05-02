@@ -1,18 +1,15 @@
-import Problems.Problema;
-import Problems.Thanos.Char;
-import Problems.Thanos.ThanosNode;
-
-import java.util.ArrayList;
-import java.util.Stack;
-
 public class Testes {
 
     public static void main(String[] args) {
 
+        Integer a = new Integer(1);
+        Integer b = a;
+        Integer c = a;
+
+        b = 2;
 
 
-
-
+        System.out.println(c);
 
         /*jogoDosOitoNode.matriz[0][0] = 1;
         jogoDosOitoNode.matriz[0][1] = 2;

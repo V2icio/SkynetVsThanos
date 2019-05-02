@@ -17,7 +17,7 @@ public class Skynet {
     public boolean ver;
     boolean check;
 
-    public Skynet(Problema problema){ //passa da main qual eh o problema
+    public Skynet(Problema problema){ //passa da main qual eh o problema TEM Q ARRUMAR O CONTADOR DE NOS, VAI BUGAR POR NULLPOINTER
 
         LocalTime localTime = java.time.LocalTime.now();
 
@@ -42,10 +42,12 @@ public class Skynet {
 
         if(ver){
 
-            System.out.println("\nCAMINHO RESPOSTA");
+            System.out.println("CAMINHO RESPOSTA\n");
             montaSolucao();
             printaSolucao();
         }
+
+        System.out.println("Um total de " + totalAbertos + " nos abertos.");
 
         LocalTime localTime1 = java.time.LocalTime.now();
         long total = Duration.between(localTime, localTime1).toMillis();
@@ -68,28 +70,33 @@ public class Skynet {
 
             if(filaPrio.isEmpty()){
 
-                System.out.println("\nNENHUMA SOLUCAO ENCONTRADA");
+                System.out.println("NENHUMA SOLUCAO ENCONTRADA\n");
                 return false;
             }
             problema = filaPrio.poll();
 
             sucessores = problema.gerarSucessores();//popula o array com os sucessores do problema
-            totalAbertos += sucessores.size();
 
-            //-----------------------------------------//roda os sucessores
-            for(int x = 0; x < sucessores.size(); x++){
+            if(sucessores != null) {
+                totalAbertos += sucessores.size();
 
-                aux = sucessores.get(x);//um auxiliar recebe um dos sucessores
-                //-----------------------------------------verificacoes
-                if (aux.equals(estadoFinal)) {
+                //-----------------------------------------//roda os sucessores
+                for(int x = 0; x < sucessores.size(); x++){
 
-                    check = false;
-                    fim = aux;//para saber a partir de qual no montar o caminho de volta
-                    break;
+                    aux = sucessores.get(x);//um auxiliar recebe um dos sucessores
+                    //-----------------------------------------verificacoes
+                    if (aux.equals(estadoFinal)) {
+
+                        check = false;
+                        fim = aux;//para saber a partir de qual no montar o caminho de volta
+                        break;
+                    }
+                    filaPrio.add(aux);//add o sucessor
+
                 }
-                filaPrio.add(aux);//add o sucessor
-
             }
+
+
         }
 
         return true;
@@ -112,7 +119,7 @@ public class Skynet {
 
             if(fila.isEmpty()){
 
-                System.out.println("\nNENHUMA SOLUCAO ENCONTRADA");
+                System.out.println("NENHUMA SOLUCAO ENCONTRADA\n");
                 return false;
             }
             problema = fila.poll();
@@ -156,7 +163,7 @@ public class Skynet {
 
             if(filaPrio.isEmpty()){
 
-                System.out.println("\nNENHUMA SOLUCAO ENCONTRADA");
+                System.out.println("NENHUMA SOLUCAO ENCONTRADA\n");
                 return false;
             }
             problema = filaPrio.poll();
@@ -203,8 +210,6 @@ public class Skynet {
 
         for(int t = solucao.size()-1; t >= 0; t--)
             solucao.get(t).printa();
-
-        System.out.println("Um total de " + totalAbertos + " nos abertos.");
 
     }
 

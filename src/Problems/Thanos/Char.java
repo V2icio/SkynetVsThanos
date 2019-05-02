@@ -4,39 +4,31 @@ import java.util.ArrayList;
 
 public class Char {
 
-    String nome;
+    public int id;
     public int vida;
-    int danoBase;
-    ArrayList<Skill> skills;
-    int peso;//numa escala de 1 a 100
+    public ArrayList<Skill> skills;
 
-    public Char (String nome, int vida, int danoBase, ArrayList<Skill> skills, int peso){
+    public Char(int id, int vida, ArrayList<Skill> skills){
 
-        this.nome = nome;
+        this.id = id;
         this.vida = vida;
-        this.danoBase = danoBase;
         this.skills = skills;
-        this.peso = peso;
     }
 
     public Char copy(){
 
-        ArrayList<Skill> arrayList = new ArrayList<>();
+        ArrayList<Skill> skills0 = new ArrayList<>();
 
-        for(Skill s : skills)
-            arrayList.add(s.copy());
+        if(skills == null){
 
-        return new Char(nome, vida, danoBase, arrayList, peso);
+            skills0 = null;
+        } else {
+
+            for(Skill s : skills)
+                skills0.add(s.copy());
+        }
+
+        return new Char(id, vida, skills0);
     }
 
-    public String getNome(){
-
-        return nome;
-    }
-
-    @Override
-    public String toString(){
-
-        return "";
-    }
 }
