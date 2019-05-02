@@ -47,7 +47,10 @@ public class ThanosNode implements Problema {
 
             if(filho.thanos.vida <= 0){//se o thanos morreu deixo a vida dele como 0 para a comparacao nao bugar
 
-                filho.roteiro.add("Thanos morreu.");
+                filho.roteiro.add("Thanos morreu.\n\n\t\tHEROIS SOBREVIVENTES");
+                for(Char c : filho.chars)
+                    filho.roteiro.add(charsInfo.get(c.id).nome);
+
                 filho.thanos.vida = 0;
                 filhos.add(filho);
                 return filhos;//dou continue pq morto nao fala
@@ -220,9 +223,9 @@ public class ThanosNode implements Problema {
         skillsInfo = new ArrayList<>();
         Random random = new Random();
 
-        charsInfo.add(new CharInfo(0, "Thanos", 2700, 150));
+        charsInfo.add(new CharInfo(0, "Thanos", 2300, 150));
         skillsInfo.add(new SkillInfo(0, "Raio com a Joia do Poder", 300, 12, 12));
-        skillsInfo.add(new SkillInfo(1, "Golpe com a Espada do Infinito", 200, 4, 4));
+        skillsInfo.add(new SkillInfo(1, "Golpe com a Espada do Infinito", 200, 6, 6));
 
         charsInfo.add(new CharInfo(1, "HawkEye", 150, 15));
         skillsInfo.add(new SkillInfo(2, "Flecha explosiva", 50, 8, 0));
@@ -235,16 +238,16 @@ public class ThanosNode implements Problema {
         skillsInfo.add(new SkillInfo(5, "Golpe com escudo", 40, 3, 3));
 
         charsInfo.add(new CharInfo(4, "Hulk", 1400, 95));
-        skillsInfo.add(new SkillInfo(6, "Soco com salto", 140, 5, 5));
+        skillsInfo.add(new SkillInfo(6, "Soco com salto", 150, 4, 4));
 
-        charsInfo.add(new CharInfo(5, "Thor", 1100, 83));
+        charsInfo.add(new CharInfo(5, "Thor", 1150, 90));
         skillsInfo.add(new SkillInfo(7, "Arremesso rompedor de tormentas", 500, 15, 15));
         skillsInfo.add(new SkillInfo(8, "Salto com trovao", 150, 5, 5));
 
-        charsInfo.add(new CharInfo(6, "DrStrange", 450, 30));
+        charsInfo.add(new CharInfo(6, "DrStrange", 550, 30));
         skillsInfo.add(new SkillInfo(9, "Espada Mistica", 80, 5, 5));
         skillsInfo.add(new SkillInfo(10, "Chamas de Faltine", 90, 12, 12));
-        skillsInfo.add(new SkillInfo(11, "Feitico de Vishanti", 200, 50, 50));
+        skillsInfo.add(new SkillInfo(11, "Feitico de Vishanti", 200, 20, 20));
 
         charsInfo.add(new CharInfo(7, "BlackWidow", 150, 10));
 
@@ -255,16 +258,16 @@ public class ThanosNode implements Problema {
         charsInfo.add(new CharInfo(10, "AntMan", 600, 5));
         skillsInfo.add(new SkillInfo(12, "Golias", 150, 5, 5));
 
-        charsInfo.add(new CharInfo(11, "WarMachine", 900, 50));
-        skillsInfo.add(new SkillInfo(13, "Bombas Napalm", 120, 7, 7));
+        charsInfo.add(new CharInfo(11, "WarMachine", 950, 50));
+        skillsInfo.add(new SkillInfo(13, "Bombas Napalm", 140, 7, 7));
 
         charsInfo.add(new CharInfo(12, "Falcon", 200, 15));
 
-        charsInfo.add(new CharInfo(13, "Vision", 800, 25));
-        skillsInfo.add(new SkillInfo(14, "Raio com a Joia da Mente", 200, 10, 10));
+        charsInfo.add(new CharInfo(13, "Vision", 800, 35));
+        skillsInfo.add(new SkillInfo(14, "Raio com a Joia da Mente", 200, 8, 8));
 
-        charsInfo.add(new CharInfo(14, "ScarletWitch", 250, 55));
-        skillsInfo.add(new SkillInfo(15, "Raio de magia", 150, 6, 6));
+        charsInfo.add(new CharInfo(14, "ScarletWitch", 450, 65));
+        skillsInfo.add(new SkillInfo(15, "Raio de magia", 250, 6, 6));
 
         charsInfo.add(new CharInfo(15, "WinterSoldier", 400, 35));
 
@@ -323,7 +326,7 @@ public class ThanosNode implements Problema {
         todos.add(new Char(9, charsInfo.get(9).vida, null));
 
         ArrayList<Skill> skills10 =  new ArrayList<>();
-        skills10.add(new Skill(12, skillsInfo.get(11).indicaTurno));
+        skills10.add(new Skill(12, skillsInfo.get(12).indicaTurno));
         todos.add(new Char(10, charsInfo.get(10).vida, skills10));
 
         ArrayList<Skill> skills11 = new ArrayList<>();
@@ -352,14 +355,19 @@ public class ThanosNode implements Problema {
         todos.add(new Char(20, charsInfo.get(20).vida, null));
         todos.add(new Char(21, charsInfo.get(21).vida, null));
 
-        for(int x = 0; x < 4; x++){
+        /*for(int x = 0; x < 4; x++){
 
             int y = random.nextInt(todos.size());
 
             chars.add(todos.get(y));
             todos.remove(y);
 
-        }
+        }*/
+
+        chars.add(todos.get(4));
+        chars.add(todos.get(2));
+        chars.add(todos.get(3));
+        chars.add(todos.get(14));
 
     }
 }
