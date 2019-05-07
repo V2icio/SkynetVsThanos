@@ -47,7 +47,7 @@ public class Skynet {
             printaSolucao();
         }
 
-        System.out.println("Um total de " + totalAbertos + " nos abertos.");
+        System.out.println("Um total de " + totalAbertos + " nos gerados.");
 
         LocalTime localTime1 = java.time.LocalTime.now();
         long total = Duration.between(localTime, localTime1).toMillis();

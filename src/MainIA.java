@@ -6,12 +6,12 @@ public class MainIA {
 
     public static void main(String[] args) {
 
-        JogoDosOitoNode jogoDosOitoNode = new JogoDosOitoNode(null);
+        /*JogoDosOitoNode jogoDosOitoNode = new JogoDosOitoNode(null);
         jogoDosOitoNode.pesoMovimento = 0;
+        Problema problema0 = jogoDosOitoNode;*/
 
         ThanosNode thanosNode = new ThanosNode(null);
 
-        Problema problema0 = jogoDosOitoNode;
         Problema problema1 = thanosNode;
 
         Skynet skynet = new Skynet(problema1);
